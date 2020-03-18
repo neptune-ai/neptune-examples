@@ -18,7 +18,7 @@ You can run every example as an "ANONYMOUS" user, without registration!
     </tr>
     <tr>
         <td align="center">
-            <a href="https://colab.research.google.com/https://github.com/neptune-ai/neptune-colab-examples/blob/master/neptune_test_run.ipynb">
+            <a href="https://colab.research.google.com/github.com/neptune-ai/neptune-colab-examples/blob/master/neptune_test_run.ipynb">
                 <img src="https://colab.research.google.com/img/colab_favicon_256px.png" height="28">
             </a>
         </td>
