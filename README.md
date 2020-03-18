@@ -6,10 +6,6 @@ neptune usage examples for Google Colab
 
 You can run every example as an "ANONYMOUS" user, without registration!
 
-<a id="general"></a>
-
-### General
-
 <table>
    <tr>   
         <td rowspan="3" width="160">
