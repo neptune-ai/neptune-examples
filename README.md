@@ -24,8 +24,6 @@ You can run every example as an "ANONYMOUS" user, without registration!
             </a>
         </td>
    </tr>
-</table>
-<table>
    <tr>   
         <td rowspan="3" width="160">
                        <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/xgboost-integration.ipynb">
