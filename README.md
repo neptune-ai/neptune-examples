@@ -49,7 +49,7 @@ You can run every example as an "ANONYMOUS" user, without registration!
         </td>
       <td>
                        <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/pytorch_lightning-integration.ipynb">
-            <b>PyTorch Lightning integration:</b> Check Neptune-XGBoost integration.
+            <b>PyTorch Lightning integration:</b> Check Neptune-PyTorch Lightning integration.
            </a>
       </td>
       <td>
