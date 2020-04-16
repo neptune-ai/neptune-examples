@@ -27,7 +27,7 @@ You can run every example as an "ANONYMOUS" user, without registration!
     <tr>
         <td>
             <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/xgboost-integration.ipynb">
-                <img src="https://neptune.ai/wp-content/uploads/monitor_training.png" width="256">
+                <img src="https://neptune.ai/wp-content/uploads/xgboost-tour.gif" width="256">
             </a>
         </td>
       <td>
