@@ -58,4 +58,21 @@ You can run every example as an "ANONYMOUS" user, without registration!
             </a>
       </td>
     </tr>
+         <tr>
+        <td>
+            <a href="https://colab.research.google.com/notebook#create=true&language=r/github/neptune-ai/neptune-colab-examples/blob/master/r-integration.ipynb">
+                <img src="https://neptune.ai/wp-content/uploads/r_integration_tour.gif" width="256">
+            </a>
+        </td>
+      <td>
+                       <a href="https://colab.research.google.com/notebook#create=true&language=r/github/neptune-ai/neptune-colab-examples/blob/master/r-integration.ipynb">
+            <b>R integration:</b> Check Neptune-R integration.
+           </a>
+      </td>
+      <td>
+            <a href="https://colab.research.google.com/notebook#create=true&language=r/github/neptune-ai/neptune-colab-examples/blob/master/r-integration.ipynb">
+                <img src="https://colab.research.google.com/img/colab_favicon_256px.png" height="56">
+            </a>
+      </td>
+    </tr>
 </table>
