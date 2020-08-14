@@ -26,6 +26,23 @@ You can run every example as an "ANONYMOUS" user, without registration!
     </tr>
     <tr>
         <td>
+            <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/logging_snippets.ipynb">
+                <img src="https://neptune.ai/wp-content/uploads/log_interactive_roc.gif" width="256">
+            </a>
+        </td>
+        <td>
+            <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/logging_snippets.ipynb">
+                <b>Neptune Logging Snippets:</b> Learn how to log various objects and copy paste things to your code.
+            </a>
+        </td>
+        <td>
+            <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/logging_snippets.ipynb">
+                <img src="https://colab.research.google.com/img/colab_favicon_256px.png" height="56">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <a href="https://colab.research.google.com/github/neptune-ai/neptune-colab-examples/blob/master/xgboost-integration.ipynb">
                 <img src="https://neptune.ai/wp-content/uploads/xgboost-tour.gif" width="256">
             </a>
