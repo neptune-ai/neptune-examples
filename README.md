@@ -1,4 +1,4 @@
-# neptune-colab-examples
+# neptune-examples
 neptune usage examples for Google Colab
 
 
