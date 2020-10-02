@@ -2,7 +2,7 @@
 
 Examples for using Neptune to keep track of your experiments.
 
-You can run every example as an "ANONYMOUS" user, without registration!
+You can run every example with zero setup as an "ANONYMOUS" Neptune user (no registration needed).
 
 ## Quickstarts
 
