@@ -1,4 +1,5 @@
 # # XGBoost integration
+
 # Here, we present XGBoost integration with Neptune that lets you automatically log metrics (train, eval), save trained model to Neptune and much more.
 # 
 # Usage is easy: just pass `neptune_callback` to training function like any other xgboost callback.
@@ -18,10 +19,11 @@
 # * [Reference documentation](https://neptune-contrib.readthedocs.io/user_guide/monitoring/xgboost.html).
 
 # Visual overview
-# ![xgboost-integration-tour](https://raw.githubusercontent.com/neptune-ai/neptune-colab-examples/master/_static/xgboost-tour.gif "XGBoost integration tour")
+# ![xgboost-integration-tour](https://neptune.ai/wp-content/uploads/xgboost-tour-1.gif)
 
 # Install dependencies
-# This demo requires few Python libs. Let's install them.
+
+This demo requires few Python libs. Let's install them.
 
 get_ipython().system("pip install 'neptune-contrib[monitoring]>=0.18.4'")
 
@@ -35,9 +37,10 @@ from sklearn.model_selection import train_test_split
 from neptunecontrib.monitoring.xgboost_monitor import neptune_callback
 
 # Set project
-# For this demonstration, I use public user: `neptuner`, who has `ANONYMOUS` token .
-# 
-# Thanks to this you can run this code as is and see results in Neptune :)
+
+For this demonstration, I use public user: `neptuner`, who has `ANONYMOUS` token .
+
+Thanks to this you can run this code as is and see results in Neptune :)
 
 neptune.init('shared/XGBoost-integration',
              api_token='ANONYMOUS')
@@ -70,7 +73,7 @@ num_round = 20
 
 # Train model using `xgb.train()`
 
-# Example experiment: [https://ui.neptune.ml/shared/XGBoost-integration/e/XGB-41](https://ui.neptune.ai/shared/XGBoost-integration/e/XGB-41?utm_source=colab&utm_medium=notebook&utm_campaign=integration-xgboost)
+Example experiment: [https://ui.neptune.ml/shared/XGBoost-integration/e/XGB-41](https://ui.neptune.ai/shared/XGBoost-integration/e/XGB-41?utm_source=colab&utm_medium=notebook&utm_campaign=integration-xgboost)
 
 neptune.create_experiment(name='xgb', tags=['train'], params=params)
 xgb.train(params, dtrain, num_round, watchlist,

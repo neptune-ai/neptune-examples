@@ -1,0 +1,8 @@
+create_docs:
+  dirs: ['integrations', 'product-tours','quickstarts']
+  excluded_dirs: ['.ipynb_checkpoints','docs', 'integrations/r']
+
+run_docs:
+  dirs: ['quickstarts', 'product-tour', 'integrations']
+  excluded_dirs: ['.ipynb_checkpoints', 'integrations/r']
+  docs_dirs: ['docs']

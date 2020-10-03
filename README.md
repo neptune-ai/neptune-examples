@@ -21,3 +21,9 @@ cp
     - Advanced [code](./integrations/pytorch-lightning/Neptune-PyTorch-Ligthning-Advanced.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/Neptune-PyTorch-Ligthning-advanced.ipynb)
 - XGBoost [code](./integrations/xgboost/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/Neptune-XGBoost.ipynb)
 - R [code](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
+
+## Notes
+
+Some of the colabs are linked to from our [documentation](https://docs.neptune.ai) and they are tested. 
+If you are working on one of those remember to add tags 'remove_docs_colab', 'remove_docs_script'.
+Those will automatically remove certain cells from the scripts or colab notebooks used in the docs.
