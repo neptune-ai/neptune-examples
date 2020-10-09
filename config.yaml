@@ -1,8 +1,14 @@
-create_docs:
-  dirs: ['integrations', 'product-tours','quickstarts']
-  excluded_dirs: ['.ipynb_checkpoints','docs', 'integrations/r']
+create_docs_paths: [
+  'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-basic.ipynb'
+]
 
-run_docs:
-  dirs: ['quickstarts', 'product-tour', 'integrations']
-  excluded_dirs: ['.ipynb_checkpoints', 'integrations/r']
-  docs_dirs: ['docs']
+run_docs_paths:
+  included_patterns: [
+    '/docs',
+    '/tests',
+    '/showcase',
+  ]
+  excluded_patterns: [
+    '/.ipynb_checkpoints',
+    '/.git',
+  ]

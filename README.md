@@ -25,5 +25,13 @@ cp
 ## Notes
 
 Some of the colabs are linked to from our [documentation](https://docs.neptune.ai) and they are tested. 
-If you are working on one of those remember to add tags 'remove_docs_colab', 'remove_docs_script'.
-Those will automatically remove certain cells from the scripts or colab notebooks used in the docs.
+If you are working on one of those remember to add tags:
+- 'comment' 
+- 'tests'
+- 'header'
+- 'code'
+- 'installation'
+- 'library_updates'
+- 'neptune_stop'
+
+Those will automatically remove certain cells from the scripts or colab notebooks used in the docs and tests.
