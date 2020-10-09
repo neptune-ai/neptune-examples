@@ -5,7 +5,7 @@ Examples for using Neptune to keep track of your experiments.
 You can run every example with zero setup as an "ANONYMOUS" Neptune user (no registration needed).
 
 ## Quickstarts
-cp 
+
 - Use Neptune API to log your first experiment [code](./quickstarst/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarts/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb)
 - Monitor ML runs live [code](./quickstarst/monitor-ml-runs/Monitor-ML-runs-live.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarst/monitor-ml-runs/Monitor-ML-runs-live.ipynb)
 - Organize ML experiments [code](./quickstarst/organize-ml-experimentation/Organize-ML-experiments.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarts/organize-ml-experimentation/Organize-ML-experiments.ipynb)
@@ -23,6 +23,19 @@ cp
 - R [code](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
 
 ## Notes
+
+The following files are a temporary fix (leaving old paths for now):
+- logging_snippets.ipynb      
+- Neptune-API-Tour.ipynb  
+- Organize-ML-experiments.ipynb        
+- r-integration.ipynb  
+- Use-Neptune-API-to-log-your-first-experiment.ipynb
+- Monitor-ML-runs-live.ipynb  
+- neptune_test_run.ipynb  
+- pytorch_lightning-integration.ipynb  
+- Template.ipynb       
+- xgboost-integration.ipynb
+
 
 Some of the colabs are linked to from our [documentation](https://docs.neptune.ai) and they are tested. 
 If you are working on one of those remember to add tags:

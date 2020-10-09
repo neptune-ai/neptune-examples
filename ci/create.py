@@ -26,21 +26,21 @@ CREATE_DOCS_NOTEBOOK = """jupyter nbconvert \
 
 CREATE_DOCS_SCRIPT = """jupyter nbconvert \
     --TagRemovePreprocessor.enabled=True \
-    --TagRemovePreprocessor.remove_cell_tags="['comment','installation', 'neptune_stop','tests','library_updates']" \
+    --TagRemovePreprocessor.remove_cell_tags="['comment','installation', 'neptune_stop','tests','library_updates','bash_code']" \
     --output-dir {} \
     --to python {}
     """
 
 CREATE_TESTS_SCRIPT = """jupyter nbconvert \
     --TagRemovePreprocessor.enabled=True \
-    --TagRemovePreprocessor.remove_cell_tags="['comment','neptune_stop', 'library_updates']" \
+    --TagRemovePreprocessor.remove_cell_tags="['comment','neptune_stop', 'library_updates','bash_code']" \
     --output-dir {} \
     --to python {}
     """
 
 CREATE_TESTS_SCRIPT_UPGRADED_LIBS = """jupyter nbconvert \
     --TagRemovePreprocessor.enabled=True \
-    --TagRemovePreprocessor.remove_cell_tags="['comment','neptune_stop']" \
+    --TagRemovePreprocessor.remove_cell_tags="['comment','neptune_stop','bash_code']" \
     --output-dir {} \
     --to python {}
     """
