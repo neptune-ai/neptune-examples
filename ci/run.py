@@ -17,10 +17,8 @@ for root, dirs, files in os.walk('.'):
         if any(p in root for p in INCLUDED_PATTERNS) and name.endswith(('.ipynb')):
             path = os.path.join(root, name)
             if name.endswith(('.ipynb')) or name.endswith('.py'):
-                try:
-                    command = RUN_SCRIPT.format(path)
-                    call(command, shell=True)
-                except Exception as e:
-                    with open('error_logs.txt', 'w+') as f:
-                        message = 'file {} failed'.format(path)
-                        f.write(message)
+                command = RUN_SCRIPT.format(path)
+                output = call(command, shell=True)
+
+                if output:
+                    raise ValueError('Example {} failed'.format(path))

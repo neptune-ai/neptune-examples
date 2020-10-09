@@ -6,7 +6,7 @@ You can run every example with zero setup as an "ANONYMOUS" Neptune user (no reg
 
 ## Quickstarts
 
-- Use Neptune API to log your first experiment [code](./quickstarst/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarts/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb)
+- Use Neptune API to log your first experiment [code](./quickstarst/first-experiment/docs/Use-Neptune-API-to-log-your-first-experiment.py) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarts/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb)
 - Monitor ML runs live [code](./quickstarst/monitor-ml-runs/Monitor-ML-runs-live.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarst/monitor-ml-runs/Monitor-ML-runs-live.ipynb)
 - Organize ML experiments [code](./quickstarst/organize-ml-experimentation/Organize-ML-experiments.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quickstarts/organize-ml-experimentation/Organize-ML-experiments.ipynb)
 
