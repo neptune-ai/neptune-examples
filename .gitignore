@@ -1,0 +1,7 @@
+.idea/
+*.ipynb_checkpoints/
+*docs/
+*tests/
+*showcase/
+*__pycache__/
+*.h5
