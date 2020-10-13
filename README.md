@@ -39,23 +39,23 @@ When you create an example notebook remember to create the following sections:
 ### Tags
 
 Each cell should be tagged with one or many of the following tags:
-- 'comment' 
-- 'tests'
-- 'header'
-- 'code'
-- 'installation'
-- 'library_updates'
-- 'neptune_stop'
+- `comment`
+- `tests`
+- `header`
+- `code`
+- `installation`
+- `library_updates`
+- `neptune_stop`
 
 ### Creating scripts, notebooks and tests
 
 For each example notebook you create the following artifacts will be created automatically:
 
-- */docs/NOTEBOOK_NAME.ipynb: it excluded cells tagged with 'comment', 'tests', 'library_updates'
-- */docs/NOTEBOOK_NAME.py: it excluded cells tagged with'comment', 'tests', 'library_updates', 'neptune_stop'
-- */showcase/NOTEBOOK_NAME.ipynb: it excluded cells tagged with 'tests', 'library_updates'
-- */tests/NOTEBOOK_NAME.py: it excluded cells tagged with 'comment', 'library_updates' , 'neptune_stop'
-- */tests/NOTEBOOK_NAME_upgraded_libs.py: it excluded cells tagged with 'comment', 'neptune_stop'
+- `*/docs/NOTEBOOK_NAME.ipynb` : it excluded cells tagged with 'comment', 'tests', 'library_updates'
+- `*/docs/NOTEBOOK_NAME.py` : it excluded cells tagged with'comment', 'tests', 'library_updates', 'neptune_stop'
+- `*/showcase/NOTEBOOK_NAME.ipynb` : it excluded cells tagged with 'tests', 'library_updates'
+- `*/tests/NOTEBOOK_NAME.py` : it excluded cells tagged with 'comment', 'library_updates' , 'neptune_stop'
+- `*/tests/NOTEBOOK_NAME_upgraded_libs.py` : it excluded cells tagged with 'comment', 'neptune_stop'
 
 To do it run:
 
@@ -87,11 +87,13 @@ This is used in `ci/create.py`.
 Pass paths to all the notebook for which you want to create artifacts.
 For example:
 
+```yaml
 create_docs_paths: [
   'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-basic.ipynb',
   'quick-starts/monitor-ml-runs/Monitor-ML-runs-live.ipynb',
   'quick-starts/organize-ml-experimentation/Organize-ML-experiments.ipynb',
 ]
+```
 
 **run_docs_paths**
 
@@ -102,22 +104,26 @@ This is used in `ci/run.py`.
 Pass patterns that you want to include. By default those are `/docs`, `/tests` and `/showcase`
 For example:
 
+```yaml
   included_patterns: [
     '/docs',
     '/tests',
     '/showcase',
   ]
-  
+```
+
   *included_patterns*
    
 Pass patterns that you want to exclude. By default those are `/.ipynb_checkpoints`, `/.git` and `/showcase`
 For example:
 
+```yaml
   excluded_patterns: [
     '/.ipynb_checkpoints',
     '/.git',
   ]
-  
+```
+
 ### Notes
 
 The following files are a temporary fix (leaving old paths for now):
