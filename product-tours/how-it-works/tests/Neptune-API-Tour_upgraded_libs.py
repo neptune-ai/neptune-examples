@@ -1,6 +1,12 @@
 # Neptune API tour
 # 
 
+# Setup
+
+get_ipython().system(' pip install neptune-client==0.4.123')
+
+get_ipython().system(' pip install neptune-client --upgrade')
+
 # Initialize Neptune
 
 import neptune
@@ -30,6 +36,10 @@ if set(current_exp.get_logs().keys()) != set(['accuracy']):
 neptune.stop()
 
 # Keras classification example [Advanced]
+
+get_ipython().system('pip install tensorflow==2.3.0 scikit-plot==0.3.7')
+
+get_ipython().system('pip install tensorflow scikit-plot --upgrade')
 
 import tensorflow as tf
 
@@ -102,6 +112,16 @@ neptune.log_image('diagnostic_charts', fig)
 
 model.save('my_model.h5')
 neptune.log_artifact('my_model.h5')
+
+# tests
+current_exp = neptune.get_experiment()
+
+correct_logs = ['batch_loss', 'batch_accuracy', 'epoch_loss', 
+                'epoch_accuracy', 'epoch_val_loss', 'epoch_val_accuracy', 
+                'test_f1', 'diagnostic_charts']
+
+if set(current_exp.get_logs().keys()) != set(correct_logs):
+    raise ValueError()
 
 neptune.stop()
 

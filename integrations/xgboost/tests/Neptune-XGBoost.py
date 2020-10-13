@@ -1,5 +1,9 @@
 # XGBoost integration
 
+# Install dependencies
+
+get_ipython().system('pip install neptune-client==0.4.122 neptune-contrib[monitoring]>=0.18.4 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.1')
+
 import neptune
 import pandas as pd
 import xgboost as xgb
