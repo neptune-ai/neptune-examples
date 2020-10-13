@@ -10,12 +10,22 @@ create_docs_paths: [
 
 run_docs_paths:
   included_patterns: [
-    '/docs',
+#    '/docs',
     '/tests',
-    '/showcase',
+#    '/showcase',
   ]
   excluded_patterns: [
     '/.ipynb_checkpoints',
     '/.git',
     '/integrations',
+    'logging_snippets.ipynb',
+    'Neptune-API-Tour.ipynb ',
+    'Organize-ML-experiments.ipynb',
+    'r-integration.ipynb',
+    'Use-Neptune-API-to-log-your-first-experiment.ipynb',
+    'Monitor-ML-runs-live.ipynb',
+    'neptune_test_run.ipynb',
+    'pytorch_lightning-integration.ipynb',
+    'Template.ipynb',
+    'xgboost-integration.ipynb',
   ]

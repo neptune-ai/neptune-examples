@@ -27,20 +27,6 @@ For each example you can:
 - XGBoost [code](./integrations/xgboost/docs/Neptune-XGBoost.py) [notebook](./integrations/xgboost/showcase/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/showcase/Neptune-XGBoost.ipynb)
 - R [notebook](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
 
-## Notes
-
-The following files are a temporary fix (leaving old paths for now):
-- logging_snippets.ipynb      
-- Neptune-API-Tour.ipynb  
-- Organize-ML-experiments.ipynb        
-- r-integration.ipynb  
-- Use-Neptune-API-to-log-your-first-experiment.ipynb
-- Monitor-ML-runs-live.ipynb  
-- neptune_test_run.ipynb  
-- pytorch_lightning-integration.ipynb  
-- Template.ipynb       
-- xgboost-integration.ipynb
-
 ## Contributing
 
 ### Required sections
@@ -83,7 +69,9 @@ To run all of those scripts execute:
 python ci/run.py
 ```
 
-You can also run both with
+Under the hood all the examples are run with `ipython SCRIPT_NAME.py` to run the library installations from within the script.
+
+You can also run both with:
 
 ```bash
 source run.sh
@@ -129,3 +117,17 @@ For example:
     '/.ipynb_checkpoints',
     '/.git',
   ]
+  
+### Notes
+
+The following files are a temporary fix (leaving old paths for now):
+- logging_snippets.ipynb      
+- Neptune-API-Tour.ipynb  
+- Organize-ML-experiments.ipynb        
+- r-integration.ipynb  
+- Use-Neptune-API-to-log-your-first-experiment.ipynb
+- Monitor-ML-runs-live.ipynb  
+- neptune_test_run.ipynb  
+- pytorch_lightning-integration.ipynb  
+- Template.ipynb       
+- xgboost-integration.ipynb

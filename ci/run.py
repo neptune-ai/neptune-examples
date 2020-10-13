@@ -12,9 +12,9 @@ RUN_SCRIPT = """ipython {}"""
 
 for root, dirs, files in os.walk('.'):
     for name in files:
-        if any(p in root for p in EXCLUDED_PATTERNS) and name.endswith(('.ipynb')):
+        if any(p in root for p in EXCLUDED_PATTERNS):
             continue
-        if any(p in root for p in INCLUDED_PATTERNS) and name.endswith(('.ipynb')):
+        if any(p in root for p in INCLUDED_PATTERNS):
             path = os.path.join(root, name)
             if name.endswith(('.ipynb')) or name.endswith('.py'):
                 command = RUN_SCRIPT.format(path)
