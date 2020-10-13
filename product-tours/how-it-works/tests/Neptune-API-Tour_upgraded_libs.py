@@ -3,7 +3,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.122')
+get_ipython().system(' pip install neptune-client==0.4.123')
 
 get_ipython().system(' pip install neptune-client --upgrade')
 

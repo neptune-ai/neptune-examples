@@ -11,7 +11,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.122 tensorflow==2.3.0')
+get_ipython().system(' pip install neptune-client==0.4.123 tensorflow==2.3.0')
 
 get_ipython().system(' pip install neptune-client tensorflow --upgrade')
 
