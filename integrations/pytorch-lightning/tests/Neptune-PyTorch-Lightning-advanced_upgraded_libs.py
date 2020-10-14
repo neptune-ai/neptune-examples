@@ -1,116 +1,160 @@
-# PyTorch Lightning + Neptune [Advanced Example]
-# 
-# Neptune helps you keep track of your machine learning experiments and if you are using PyTorch Lightning you can add tracking very easily. 
-# 
-# Let me show you how.
+# PyTorch Lightning 0.9.0 + Neptune [Advanced Example]
 
-## Install dependencies 
+# Before you start
 
-# Not all of those are a must but I wanted to show more cool stuff.
+## Install necessary dependencies
 
-# ! pip install pytorch-lightning scikit-plot neptune-client neptune-contrib[viz] --upgrade
+get_ipython().system(' pip install pytorch-lightning==0.9.0 neptune-client==0.4.122')
 
-# Basic imports
+## Install additional dependencies
+
+get_ipython().system(' pip install scikit-learn scikit-plot --upgrade')
+
+# Step 1: Import Libraries
 
 import os
-
-import matplotlib.pyplot as plt
 import numpy as np
 
 import torch
-from torch.nn import functional as F
-from torch.utils.data import DataLoader
+import torch.nn.functional as F
 from torchvision.datasets import MNIST
 from torchvision import transforms
+from torch.utils.data import DataLoader
+from torch.utils.data import random_split
+from torch.optim.lr_scheduler import LambdaLR
 
 import pytorch_lightning as pl
 
-# Define parameters
+# Step 2: Define Hyper-Parameters
 
-MAX_EPOCHS=7
-LR=0.02
-BATCHSIZE=32
-CHECKPOINTS_DIR = 'my_models/checkpoints/'
+LightningModule_Params = {'image_size': 28,
+                          'linear': 128,
+                          'n_classes': 10,
+                          'learning_rate': 0.0023,
+                          'decay_factor': 0.95}
 
-# Define LightningModule
+LightningDataModule_Params = {'batch_size': 32,
+                              'num_workers': 4,
+                              'normalization_vector': ((0.1307,), (0.3081,)),}
 
-# This is your typical `pl.LightningModule` with required methods defined. Nothing new here.
+LearningRateLogger_Params = {'logging_interval': 'epoch'}
 
-class AdvancedSystem(pl.LightningModule):
+ModelCheckpoint_Params = {'filepath': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
+                          'save_weights_only': True,
+                          'save_top_k': 3}
 
-    def __init__(self):
-        super(BasicSystem, self).__init__()
-        # not the best model...
-        self.l1 = torch.nn.Linear(28 * 28, 10)
+Trainer_Params = {'max_epochs': 7,
+                  'track_grad_norm': 2,
+                  'row_log_interval': 1}
+
+ALL_PARAMS = {**LightningModule_Params,
+              **LightningDataModule_Params,
+              **LearningRateLogger_Params,
+              **ModelCheckpoint_Params,
+              **Trainer_Params}
+
+# Step 3: Define LightningModule, LightningDataModule and Callbacks
+
+## Step 3.1: Implement LightningModule
+
+class LitModel(pl.LightningModule):
+
+    def __init__(self, image_size, linear, n_classes, learning_rate, decay_factor):
+        super().__init__()
+        self.image_size = image_size
+        self.linear = linear
+        self.n_classes = n_classes
+        self.learning_rate = learning_rate
+        self.decay_factor = decay_factor
+
+        self.layer_1 = torch.nn.Linear(image_size * image_size, linear)
+        self.layer_2 = torch.nn.Linear(linear, n_classes)
 
     def forward(self, x):
-        return torch.relu(self.l1(x.view(x.size(0), -1)))
-    
-    def training_step(self, batch, batch_idx):
-        # REQUIRED
-        x, y = batch
-        y_hat = self.forward(x)
-        loss = F.cross_entropy(y_hat, y)
-        tensorboard_logs = {'train_loss': loss}
-        return {'loss': loss, 'log': tensorboard_logs}
-    
-    def validation_step(self, batch, batch_idx):
-        # OPTIONAL
-        x, y = batch
-        y_hat = self.forward(x)
-        return {'val_loss': F.cross_entropy(y_hat, y)}
-
-    def validation_end(self, outputs):
-        # OPTIONAL
-        avg_loss = torch.stack([x['val_loss'] for x in outputs]).mean()
-        tensorboard_logs = {'val_loss': avg_loss}
-
-        fig = plt.figure()
-        losses = np.stack([x['val_loss'].numpy() for x in outputs])
-        plt.hist(losses)
-        self.logger.experiment.log_image('loss_histograms', fig)
-        plt.close(fig)
-
-        return {'avg_val_loss': avg_loss, 'log': tensorboard_logs}
-
-    def test_step(self, batch, batch_idx):
-        # OPTIONAL
-        x, y = batch
-        y_hat = self.forward(x)
-        return {'test_loss': F.cross_entropy(y_hat, y)}
-
-    def test_end(self, outputs):
-        # OPTIONAL
-        avg_loss = torch.stack([x['test_loss'] for x in outputs]).mean()
-        tensorboard_logs = {'test_loss': avg_loss}
-        return {'avg_test_loss': avg_loss, 'log': tensorboard_logs}
+        x = x.view(x.size(0), -1)
+        x = self.layer_1(x)
+        x = F.relu(x)
+        x = self.layer_2(x)
+        return x
 
     def configure_optimizers(self):
-        # REQUIRED
-        # can return multiple optimizers and learning_rate schedulers
-        # (LBFGS it is automatically supported, no need for closure function)
-        return torch.optim.Adam(self.parameters(), lr=LR)
-    
-    @pl.data_loader
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
+        scheduler = LambdaLR(optimizer, lambda epoch: self.decay_factor ** epoch)
+        return [optimizer], [scheduler]
+
+    def training_step(self, batch, batch_idx):
+        x, y = batch
+        y_hat = self(x)
+        loss = F.cross_entropy(y_hat, y)
+        result = pl.TrainResult(loss)
+        result.log('train_loss', loss, prog_bar=False)
+        return result
+
+    def validation_step(self, batch, batch_idx):
+        x, y = batch
+        y_hat = self(x)
+        loss = F.cross_entropy(y_hat, y)
+        result = pl.EvalResult(checkpoint_on=loss)
+        result.log('val_loss', loss, prog_bar=False)
+        return result
+
+    def test_step(self, batch, batch_idx):
+        x, y = batch
+        y_hat = self(x)
+        loss = F.cross_entropy(y_hat, y)
+        result = pl.EvalResult()
+        result.log('test_loss', loss, prog_bar=False)
+        return result
+
+## Step 3.2: Implement LightningDataModule
+
+class MNISTDataModule(pl.LightningDataModule):
+
+    def __init__(self, batch_size, num_workers, normalization_vector):
+        super().__init__()
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.normalization_vector = normalization_vector
+
+    def prepare_data(self):
+        MNIST(os.getcwd(), train=True, download=True)
+        MNIST(os.getcwd(), train=False, download=True)
+
+    def setup(self, stage):
+        # transforms
+        transform=transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize(self.normalization_vector[0],
+                                 self.normalization_vector[1])
+        ])
+
+        if stage == 'fit':
+            mnist_train = MNIST(os.getcwd(), train=True, transform=transform)
+            self.mnist_train, self.mnist_val = random_split(mnist_train, [55000, 5000])
+        if stage == 'test':
+            self.mnist_test = MNIST(os.getcwd(), train=False, transform=transform)
+
     def train_dataloader(self):
-        # REQUIRED
-        return DataLoader(MNIST(os.getcwd(), train=True, download=True, transform=transforms.ToTensor()), batch_size=BATCHSIZE)
-    
-    @pl.data_loader
+        mnist_train = DataLoader(self.mnist_train, batch_size=self.batch_size, num_workers=self.num_workers)
+        return mnist_train
+
     def val_dataloader(self):
-        # OPTIONAL
-        return DataLoader(MNIST(os.getcwd(), train=True, download=True, transform=transforms.ToTensor()), batch_size=BATCHSIZE)
+        mnist_val = DataLoader(self.mnist_val, batch_size=self.batch_size, num_workers=self.num_workers)
+        return mnist_val
 
-    @pl.data_loader
     def test_dataloader(self):
-        # OPTIONAL
-        return DataLoader(MNIST(os.getcwd(), train=False, download=True, transform=transforms.ToTensor()), batch_size=BATCHSIZE)
+        mnist_test = DataLoader(self.mnist_test, batch_size=self.batch_size, num_workers=self.num_workers)
+        return mnist_test
 
-# Define NeptuneLogger with custom params
+## Step 3.3: Implement Callbacks
 
-We will also create a more advanced `NeptuneLogger` that contains information about hyperparameters, add tags to make runs organized, and define which scripts we want to snapshot.
+from pytorch_lightning.callbacks import LearningRateLogger, ModelCheckpoint
 
-Also, I will use the `close_after_fit=False` argument to make sure that the logger doesn't close after the `.fit` loop ends.
+lr_logger = LearningRateLogger(**LearningRateLogger_Params)
+
+model_checkpoint = ModelCheckpoint(**ModelCheckpoint_Params)
+
+# Step 4: Create NeptuneLogger
 
 from pytorch_lightning.loggers.neptune import NeptuneLogger
 
@@ -118,128 +162,97 @@ neptune_logger = NeptuneLogger(
     api_key="ANONYMOUS",
     project_name="shared/pytorch-lightning-integration",
     close_after_fit=False,
-    experiment_name="default",  # Optional,
-    params={"max_epochs": MAX_EPOCHS,
-            "batch_size": BATCHSIZE,
-            "lr": LR}, # Optional,
-    tags=["pytorch-lightning", "mlp"],
-    upload_source_files=['*.py','*.yaml'],
+    experiment_name="train-on-MNIST",
+    params=ALL_PARAMS,
+    tags=['0.9.0', 'advanced'],
 )
 
-# Pass neptune_logger to the Trainer
-
-Again we need to pass `neptune_logger` to the `Trainer` object:
+# Step 5: Pass NeptuneLogger and Callbacks to the Trainer
 
 from pytorch_lightning import Trainer
 
-model_checkpoint = pl.callbacks.ModelCheckpoint(filepath=CHECKPOINTS_DIR)
+trainer = pl.Trainer(logger=neptune_logger,
+                     checkpoint_callback=model_checkpoint,
+                     callbacks=[lr_logger],
+                     **Trainer_Params)
 
-advanced_model = AdvancedSystem()
-trainer = Trainer(max_epochs=MAX_EPOCHS,
-                  logger=neptune_logger,
-                  checkpoint_callback=model_checkpoint,
-                  )
-trainer.fit(advanced_model)
+# Step 6: Run experiment
 
-# and we can explore our run in Neptune.
-# 
-# But since we specified `close_after_fit=False` we can log additional things like:
+## Step 6.1: Initialize model and data objects
 
-## Test metrics from `.test(...)` call 
+# init model
+model = LitModel(**LightningModule_Params)
 
-trainer.test(advanced_model)
+# init data
+dm = MNISTDataModule(**LightningDataModule_Params)
 
-## Custom metrics 
+## Step 6.2: Run training
 
-We can log metrics that we want to calculate after .fit ends.
-For example let's calculate `accuracy_score` and use `.log_metric` method to log it to Neptune.
+trainer.fit(model, dm)
 
-advanced_model.freeze()
-test_loader = DataLoader(MNIST(os.getcwd(), train=False, download=True, transform=transforms.ToTensor()), batch_size=256)
+## Step 6.3: Run testing
 
-y_true, y_pred = [],[]
-for i, (x, y) in enumerate(test_loader):
-    y_hat = advanced_model.forward(x).argmax(axis=1).cpu().detach().numpy()
+trainer.test(datamodule=dm)
+
+# Step 7: Run additional actions
+
+## Step 7.1: Log misclassified images
+
+model.freeze()
+test_data = dm.test_dataloader()
+y_true = np.array([])
+y_pred = np.array([])
+
+for i, (x, y) in enumerate(test_data):
     y = y.cpu().detach().numpy()
+    y_hat = model.forward(x).argmax(axis=1).cpu().detach().numpy()
 
-    y_true.append(y)
-    y_pred.append(y_hat)
+    y_true = np.append(y_true, y)
+    y_pred = np.append(y_pred, y_hat)
 
-    if i == len(test_loader):
-        break
-y_true = np.hstack(y_true)
-y_pred = np.hstack(y_pred)
+    for j in np.where(np.not_equal(y, y_hat))[0]:
+        img = np.squeeze(x[j].cpu().detach().numpy())
+        img[img < 0] = 0
+        img = (img / img.max()) * 256
+        neptune_logger.experiment.log_image('misclassified_images', img, description='y_pred={}, y_true={}'.format(y_hat[j], y[j]))
 
-# Log additional metrics
+## Step 7.2: Log custom metric
+
 from sklearn.metrics import accuracy_score
 
 accuracy = accuracy_score(y_true, y_pred)
 neptune_logger.experiment.log_metric('test_accuracy', accuracy)
 
-## Performance charts
+## Step 7.3: Log confusion matrix
 
-You can log performance charts like ROC AUC or Confusion Matrix.
-
-Just use `.log_image` method on a matplotlib figure you want to log.
-
+import matplotlib.pyplot as plt
 from scikitplot.metrics import plot_confusion_matrix
 
 fig, ax = plt.subplots(figsize=(16, 12))
 plot_confusion_matrix(y_true, y_pred, ax=ax)
 neptune_logger.experiment.log_image('confusion_matrix', fig)
 
-# Log artifacts
+## Step 7.4: Log model checkpoints to Neptune
 
-You can log any file to Neptune. just use the `.log_artifact` method.
+for k in model_checkpoint.best_k_models.keys():
+    model_name = 'checkpoints/' + k.split('/')[-1]
+    neptune_logger.experiment.log_artifact(k, model_name)
 
-For example, we can log the entire 'CHECKPOINTS_DIR' directory.
+## Step 7.5: Log best model checkpoint score to Neptune
 
-neptune_logger.experiment.log_artifact(CHECKPOINTS_DIR)
+neptune_logger.experiment.set_property('best_model_score', model_checkpoint.best_model_score.tolist())
 
-# Stop the logger
+## Step 7.6 Log model summary
 
-# After everything is done you need to stop the logger.
+for chunk in [x for x in str(model).split('\n')]:
+    neptune_logger.experiment.log_text('model_summary', str(chunk))
+
+## Step 7.7: Log number of GPU units used
+
+neptune_logger.experiment.set_property('num_gpus', trainer.num_gpus)
+
+# Step 8: Stop Neptune logger
 
 neptune_logger.experiment.stop()
 
-# Explore in Neptune
-
-# Now you can explore everything you logged in Neptune.
-
-# You can use your experiment link or go check out [this experiment](https://ui.neptune.ai/o/shared/org/pytorch-lightning-integration/e/PYTOR-119/logs):
-
-# ![image](https://neptune.ai/wp-content/uploads/lightning_advanced.gif)
-
-# Fetch experiments after training
-# 
-# Neptune lets you access everything you logged programatically.
-
-# Fetch experiment dashboard
-
-# You can get the dashboard table into `pandas.DataFrame`
-
-import neptune
-
-project = neptune.init(api_token="ANONYMOUS",
-                       project_qualified_name='shared/pytorch-lightning-integration')
-project.get_leaderboard().head(3)
-
-# Visualize experiments with Hiplot
-
-# With [Neptune - HiPlot integration](https://docs.neptune.ai/integrations/hiplot.html) you can visualize all your experiment metrics and hyperparameters. 
-
-from neptunecontrib.viz.parallel_coordinates_plot import make_parallel_coordinates_plot
-
-make_parallel_coordinates_plot(metrics= ['train_loss', 'val_loss', 'test_accuracy'],
-                               params = ['max_epochs', 'batch_size', 'lr'])
-
-# Update Experiment
-
-# You can also fetch a single experiment and update it with some external metric calculated after training.
-
-exp = project.get_experiments(id='PYTOR-63')[0]
-exp.log_metric('some_external_metric', 0.92)
-
-# Create your free account
-# 
-# The best part is, Neptune is completely free for individuals and research teams so you can go ahead and [create your free account](https://neptune.ai?utm_source=colab&utm_medium=notebook&utm_campaign=integration-pytorch-lightning) and check it out for yourself.
+# Explore Results

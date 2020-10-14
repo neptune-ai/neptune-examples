@@ -1,8 +1,10 @@
-# PyTorch Lightning + Neptune [Basic Example]
+# PyTorch Lightning 0.9.0 + Neptune [Basic Example]
+
+# Before you start
 
 get_ipython().system(' pip install pytorch-lightning==0.9.0 neptune-client==0.4.122')
 
-# Basic imports
+# Step 1: Import Libraries
 
 import os
 
@@ -14,61 +16,56 @@ from torchvision import transforms
 
 import pytorch_lightning as pl
 
-# Define parameters
+# Step 2: Define Hyper-Parameters
 
-MAX_EPOCHS=3
-LR=0.02
-BATCHSIZE=32
+PARAMS = {'max_epochs': 3,
+          'learning_rate': 0.005,
+          'batch_size': 32}
 
-# Define LightningModule
+# Step 3: Define LightningModule and DataLoader
 
-class BasicSystem(pl.LightningModule):
-
+# pl.LightningModule
+class LitModel(pl.LightningModule):
     def __init__(self):
-        super(BasicSystem, self).__init__()
-        # not the best model...
+        super().__init__()
         self.l1 = torch.nn.Linear(28 * 28, 10)
 
     def forward(self, x):
         return torch.relu(self.l1(x.view(x.size(0), -1)))
 
     def training_step(self, batch, batch_idx):
-        # REQUIRED
         x, y = batch
-        y_hat = self.forward(x)
+        y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        tensorboard_logs = {'train_loss': loss}
-        return {'loss': loss, 'log': tensorboard_logs}
+        result = pl.TrainResult(minimize=loss)
+        result.log('train_loss', loss)
+        return result
 
     def configure_optimizers(self):
-        # REQUIRED
-        # can return multiple optimizers and learning_rate schedulers
-        # (LBFGS it is automatically supported, no need for closure function)
-        return torch.optim.Adam(self.parameters(), lr=LR)
+        return torch.optim.Adam(self.parameters(), lr=PARAMS['learning_rate'])
 
-    @pl.data_loader
-    def train_dataloader(self):
-        # REQUIRED
-        return DataLoader(MNIST(os.getcwd(), train=True, download=True, transform=transforms.ToTensor()), batch_size=BATCHSIZE)
+# DataLoader
+train_loader = DataLoader(MNIST(os.getcwd(), download=True, transform=transforms.ToTensor()),
+                          batch_size=PARAMS['batch_size'])
 
-# Create NeptuneLogger
+# Step 4: Create NeptuneLogger
 
 from pytorch_lightning.loggers.neptune import NeptuneLogger
 
 neptune_logger = NeptuneLogger(
     api_key="ANONYMOUS",
-    project_name="shared/pytorch-lightning-integration")
+    project_name="shared/pytorch-lightning-integration",
+    params=PARAMS)
 
-# Pass neptune_logger to Trainer
+# Step 5: Pass NeptuneLogger to the Trainer
 
-from pytorch_lightning import Trainer
+trainer = pl.Trainer(max_epochs=PARAMS['max_epochs'],
+                     logger=neptune_logger)
 
-basic_model = BasicSystem()
-trainer = Trainer(max_epochs=MAX_EPOCHS,
-                  logger=neptune_logger,
-                  )
-trainer.fit(basic_model)
+# Step 6: Run experiment
 
-# Stop the logger
+model = LitModel()
 
-neptune_logger.experiment.stop()
+trainer.fit(model, train_loader)
+
+# Explore Results
