@@ -1,6 +1,8 @@
-# PyTorch Lightning 0.9.0 + Neptune [Basic Example]
+# PyTorch Lightning 1.x + Neptune [Basic Example]
 
 # Before you start
+
+## Install dependencies
 
 # Step 1: Import Libraries
 
@@ -35,9 +37,8 @@ class LitModel(pl.LightningModule):
         x, y = batch
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        result = pl.TrainResult(minimize=loss)
-        result.log('train_loss', loss)
-        return result
+        self.log('train_loss', loss)
+        return loss
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=PARAMS['learning_rate'])

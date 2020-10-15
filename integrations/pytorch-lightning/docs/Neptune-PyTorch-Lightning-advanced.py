@@ -1,4 +1,4 @@
-# PyTorch Lightning 0.9.0 + Neptune [Advanced Example]
+# PyTorch Lightning 1.x + Neptune [Advanced Example]
 
 # Before you start
 
@@ -9,17 +9,17 @@
 # Step 1: Import Libraries
 
 import os
-import numpy as np
 
+import numpy as np
+import pytorch_lightning as pl
 import torch
 import torch.nn.functional as F
-from torchvision.datasets import MNIST
-from torchvision import transforms
+from sklearn.metrics import accuracy_score
+from torch.optim.lr_scheduler import LambdaLR
 from torch.utils.data import DataLoader
 from torch.utils.data import random_split
-from torch.optim.lr_scheduler import LambdaLR
-
-import pytorch_lightning as pl
+from torchvision import transforms
+from torchvision.datasets import MNIST
 
 # Step 2: Define Hyper-Parameters
 
@@ -33,19 +33,21 @@ LightningDataModule_Params = {'batch_size': 32,
                               'num_workers': 4,
                               'normalization_vector': ((0.1307,), (0.3081,)),}
 
-LearningRateLogger_Params = {'logging_interval': 'epoch'}
+LearningRateMonitor_Params = {'logging_interval': 'epoch'}
 
 ModelCheckpoint_Params = {'filepath': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
                           'save_weights_only': True,
-                          'save_top_k': 3}
+                          'save_top_k': 3,
+                          'monitor': 'val_loss',
+                          'period': 1}
 
-Trainer_Params = {'max_epochs': 7,
-                  'track_grad_norm': 2,
-                  'row_log_interval': 1}
+Trainer_Params = {'log_every_n_steps': 100,
+                  'max_epochs': 7,
+                  'track_grad_norm': 2}
 
 ALL_PARAMS = {**LightningModule_Params,
               **LightningDataModule_Params,
-              **LearningRateLogger_Params,
+              **LearningRateMonitor_Params,
               **ModelCheckpoint_Params,
               **Trainer_Params}
 
@@ -62,6 +64,8 @@ class LitModel(pl.LightningModule):
         self.n_classes = n_classes
         self.learning_rate = learning_rate
         self.decay_factor = decay_factor
+        self.train_img_max = 10
+        self.train_img = 0
 
         self.layer_1 = torch.nn.Linear(image_size * image_size, linear)
         self.layer_2 = torch.nn.Linear(linear, n_classes)
@@ -82,25 +86,68 @@ class LitModel(pl.LightningModule):
         x, y = batch
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        result = pl.TrainResult(loss)
-        result.log('train_loss', loss, prog_bar=False)
-        return result
+        self.log('train_loss', loss, prog_bar=False)
+        y_true = y.cpu().detach().numpy()
+        y_pred = y_hat.argmax(axis=1).cpu().detach().numpy()
+        return {'loss': loss,
+                'y_true': y_true,
+                'y_pred': y_pred}
+
+    def training_epoch_end(self, outputs):
+        y_true = np.array([])
+        y_pred = np.array([])
+        for results_dict in outputs:
+            y_true = np.append(y_true, results_dict['y_true'])
+            y_pred = np.append(y_pred, results_dict['y_pred'])
+        acc = accuracy_score(y_true, y_pred)
+        self.log('train_acc', acc)
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        result = pl.EvalResult(checkpoint_on=loss)
-        result.log('val_loss', loss, prog_bar=False)
-        return result
+        self.log('val_loss', loss, prog_bar=False)
+        y_true = y.cpu().detach().numpy()
+        y_pred = y_hat.argmax(axis=1).cpu().detach().numpy()
+        return {'loss': loss,
+                'y_true': y_true,
+                'y_pred': y_pred}
+
+    def validation_epoch_end(self, outputs):
+        y_true = np.array([])
+        y_pred = np.array([])
+        for results_dict in outputs:
+            y_true = np.append(y_true, results_dict['y_true'])
+            y_pred = np.append(y_pred, results_dict['y_pred'])
+        acc = accuracy_score(y_true, y_pred)
+        self.log('val_acc', acc)
 
     def test_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        result = pl.EvalResult()
-        result.log('test_loss', loss, prog_bar=False)
-        return result
+        self.log('test_loss', loss, prog_bar=False)
+        y_true = y.cpu().detach().numpy()
+        y_pred = y_hat.argmax(axis=1).cpu().detach().numpy()
+        for j in np.where(np.not_equal(y_true, y_pred))[0]:
+            img = np.squeeze(x[j].cpu().detach().numpy())
+            img[img < 0] = 0
+            img = (img / img.max()) * 256
+            neptune_logger.experiment.log_image('test_misclassified_images',
+                                                img,
+                                                description='y_pred={}, y_true={}'.format(y_pred[j], y_true[j]))
+        return {'loss': loss,
+                'y_true': y_true,
+                'y_pred': y_pred}
+
+    def test_epoch_end(self, outputs):
+        y_true = np.array([])
+        y_pred = np.array([])
+        for results_dict in outputs:
+            y_true = np.append(y_true, results_dict['y_true'])
+            y_pred = np.append(y_pred, results_dict['y_pred'])
+        acc = accuracy_score(y_true, y_pred)
+        self.log('test_acc', acc)
 
 ## Step 3.2: Implement LightningDataModule
 
@@ -142,11 +189,11 @@ class MNISTDataModule(pl.LightningDataModule):
         mnist_test = DataLoader(self.mnist_test, batch_size=self.batch_size, num_workers=self.num_workers)
         return mnist_test
 
-## Step 3.3: Implement Callbacks
+## Step 3.3: Implement Callbacks and Create Them
 
-from pytorch_lightning.callbacks import LearningRateLogger, ModelCheckpoint
+from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 
-lr_logger = LearningRateLogger(**LearningRateLogger_Params)
+lr_logger = LearningRateMonitor(**LearningRateMonitor_Params)
 
 model_checkpoint = ModelCheckpoint(**ModelCheckpoint_Params)
 
@@ -160,12 +207,10 @@ neptune_logger = NeptuneLogger(
     close_after_fit=False,
     experiment_name="train-on-MNIST",
     params=ALL_PARAMS,
-    tags=['0.9.0', 'advanced'],
+    tags=['1.x', 'advanced'],
 )
 
 # Step 5: Pass NeptuneLogger and Callbacks to the Trainer
-
-from pytorch_lightning import Trainer
 
 trainer = pl.Trainer(logger=neptune_logger,
                      checkpoint_callback=model_checkpoint,
@@ -190,9 +235,12 @@ trainer.fit(model, dm)
 
 trainer.test(datamodule=dm)
 
-# Step 7: Run additional actions
+# Step 7: Run additional actions after train and fit
 
-## Step 7.1: Log misclassified images
+## Step 7.1: Log confusion matrix
+
+import matplotlib.pyplot as plt
+from scikitplot.metrics import plot_confusion_matrix
 
 model.freeze()
 test_data = dm.test_dataloader()
@@ -206,48 +254,30 @@ for i, (x, y) in enumerate(test_data):
     y_true = np.append(y_true, y)
     y_pred = np.append(y_pred, y_hat)
 
-    for j in np.where(np.not_equal(y, y_hat))[0]:
-        img = np.squeeze(x[j].cpu().detach().numpy())
-        img[img < 0] = 0
-        img = (img / img.max()) * 256
-        neptune_logger.experiment.log_image('misclassified_images', img, description='y_pred={}, y_true={}'.format(y_hat[j], y[j]))
-
-## Step 7.2: Log custom metric
-
-from sklearn.metrics import accuracy_score
-
-accuracy = accuracy_score(y_true, y_pred)
-neptune_logger.experiment.log_metric('test_accuracy', accuracy)
-
-## Step 7.3: Log confusion matrix
-
-import matplotlib.pyplot as plt
-from scikitplot.metrics import plot_confusion_matrix
-
 fig, ax = plt.subplots(figsize=(16, 12))
 plot_confusion_matrix(y_true, y_pred, ax=ax)
 neptune_logger.experiment.log_image('confusion_matrix', fig)
 
-## Step 7.4: Log model checkpoints to Neptune
+## Step 7.2: Log model checkpoints to Neptune
 
 for k in model_checkpoint.best_k_models.keys():
     model_name = 'checkpoints/' + k.split('/')[-1]
     neptune_logger.experiment.log_artifact(k, model_name)
 
-## Step 7.5: Log best model checkpoint score to Neptune
+## Step 7.3: Log best model checkpoint score to Neptune
 
 neptune_logger.experiment.set_property('best_model_score', model_checkpoint.best_model_score.tolist())
 
-## Step 7.6 Log model summary
+## Step 7.4 Log model summary
 
 for chunk in [x for x in str(model).split('\n')]:
     neptune_logger.experiment.log_text('model_summary', str(chunk))
 
-## Step 7.7: Log number of GPU units used
+## Step 7.5: Log number of GPU units used
 
 neptune_logger.experiment.set_property('num_gpus', trainer.num_gpus)
 
-# Step 8: Stop Neptune logger
+# Step 8: Stop Neptune logger at the end
 
 neptune_logger.experiment.stop()
 

@@ -1,8 +1,12 @@
-# PyTorch Lightning 0.9.0 + Neptune [Basic Example]
+# PyTorch Lightning 1.x + Neptune [Basic Example]
 
 # Before you start
 
-get_ipython().system(' pip install pytorch-lightning==0.9.0 neptune-client==0.4.122')
+## Install dependencies
+
+get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torchvision==0.7.0')
+
+get_ipython().system(' pip install pytorch-lightning neptune-client torchvision --upgrade')
 
 # Step 1: Import Libraries
 
@@ -37,9 +41,8 @@ class LitModel(pl.LightningModule):
         x, y = batch
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
-        result = pl.TrainResult(minimize=loss)
-        result.log('train_loss', loss)
-        return result
+        self.log('train_loss', loss)
+        return loss
 
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=PARAMS['learning_rate'])
@@ -69,3 +72,16 @@ model = LitModel()
 trainer.fit(model, train_loader)
 
 # Explore Results
+
+# tests
+exp = neptune_logger.experiment.id
+
+## check dataloader size
+if len(train_loader) != 1875:
+    raise ValueError('data loader size does not match')
+
+## check logs
+correct_logs = ['train_loss', 'epoch']
+
+if set(neptune_logger.experiment.get_logs().keys()) != set(correct_logs):
+    raise ValueError('incorrect metrics')
