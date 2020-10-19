@@ -1,5 +1,8 @@
 name: pytorch_lightning 
-on: [push]
+on:
+  push:
+  schedule:
+    - cron: '*/14 3 * * *' # Run once daily at arbitrary time (3:14 AM UTC)
 jobs:
   test:
     runs-on: ${{ matrix.os }}
