@@ -10,16 +10,15 @@ EXCLUDED_PATTERNS = config['run_docs_paths']['excluded_patterns']
 INCLUDED_PATTERNS = config['run_docs_paths']['included_patterns']
 RUN_SCRIPT = """ipython {}"""
 
-if __name__ == '__main__':
-    for root, dirs, files in os.walk('.'):
-        for name in files:
-            if any(p in root for p in EXCLUDED_PATTERNS):
-                continue
-            if any(p in root for p in INCLUDED_PATTERNS):
-                path = os.path.join(root, name)
-                if name.endswith(('.ipynb')) or name.endswith('.py'):
-                    command = RUN_SCRIPT.format(path)
-                    output = call(command, shell=True)
+for root, dirs, files in os.walk('.'):
+    for name in files:
+        if any(p in root for p in EXCLUDED_PATTERNS):
+            continue
+        if any(p in root for p in INCLUDED_PATTERNS):
+            path = os.path.join(root, name)
+            if name.endswith(('.ipynb')) or name.endswith('.py'):
+                command = RUN_SCRIPT.format(path)
+                output = call(command, shell=True)
 
-                    if output:
-                        raise ValueError('Example {} failed'.format(path))
+                if output:
+                    raise ValueError('Example {} failed'.format(path))
