@@ -1,11 +1,24 @@
 from subprocess import call
+from pathlib import Path
 
-from .create import build
+from .build import build_tests
 
-build('integrations/pytorch-lightning/Neptune-PyTorch-Lightning-basic.ipynb')
-build('integrations/pytorch-lightning/Neptune-PyTorch-Lightning-advanced.ipynb')
+source_files = [
+    'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-basic.ipynb',
+    'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-advanced.ipynb'
+]
 
-call('ipython integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-basic.py', shell=True)
-call('ipython integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-basic_upgraded_libs.py', shell=True)
-call('ipython integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-advanced.py', shell=True)
-call('ipython integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-advanced_upgraded_libs.py', shell=True)
+for filename in source_files:
+    build_tests(Path(filename))
+
+test_files = [
+    'integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-basic.py',
+    'integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-basic_upgraded_libs.py',
+    'integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-advanced.py',
+    'integrations/pytorch-lightning/tests/Neptune-PyTorch-Lightning-advanced_upgraded_libs.py'
+]
+
+for filename in test_files:
+    retcode = call('ipython ' + filename, shell=True)
+    if retcode:
+        raise Exception('Test {} failed'.format(filename))
