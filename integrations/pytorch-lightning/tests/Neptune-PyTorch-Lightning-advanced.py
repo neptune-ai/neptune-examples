@@ -4,7 +4,7 @@
 
 ## Install necessary dependencies
 
-get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torchvision==0.7.0')
+get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torch==1.6.0 torchvision==0.7.0')
 
 ## Install additional dependencies
 
@@ -57,7 +57,7 @@ ALL_PARAMS = {**LightningModule_Params,
 
 # Step 3: Define LightningModule, LightningDataModule and Callbacks
 
-## Step 3.1: Implement LightningModule
+## 1: Implement LightningModule
 
 class LitModel(pl.LightningModule):
 
@@ -153,7 +153,7 @@ class LitModel(pl.LightningModule):
         acc = accuracy_score(y_true, y_pred)
         self.log('test_acc', acc)
 
-## Step 3.2: Implement LightningDataModule
+## 2: Implement LightningDataModule
 
 class MNISTDataModule(pl.LightningDataModule):
 
@@ -193,7 +193,7 @@ class MNISTDataModule(pl.LightningDataModule):
         mnist_test = DataLoader(self.mnist_test, batch_size=self.batch_size, num_workers=self.num_workers)
         return mnist_test
 
-## Step 3.3: Implement Callbacks and Create Them
+## 3: Implement Callbacks and Create Them
 
 from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 
@@ -223,7 +223,7 @@ trainer = pl.Trainer(logger=neptune_logger,
 
 # Step 6: Run experiment
 
-## Step 6.1: Initialize model and data objects
+## 1: Initialize model and data objects
 
 # init model
 model = LitModel(**LightningModule_Params)
@@ -231,17 +231,17 @@ model = LitModel(**LightningModule_Params)
 # init data
 dm = MNISTDataModule(**LightningDataModule_Params)
 
-## Step 6.2: Run training
+## 2: Run training
 
 trainer.fit(model, dm)
 
-## Step 6.3: Run testing
+## 3: Run testing
 
 trainer.test(datamodule=dm)
 
 # Step 7: Run additional actions after train and fit
 
-## Step 7.1: Log confusion matrix
+## 1: Log confusion matrix
 
 import matplotlib.pyplot as plt
 from scikitplot.metrics import plot_confusion_matrix
@@ -262,22 +262,22 @@ fig, ax = plt.subplots(figsize=(16, 12))
 plot_confusion_matrix(y_true, y_pred, ax=ax)
 neptune_logger.experiment.log_image('confusion_matrix', fig)
 
-## Step 7.2: Log model checkpoints to Neptune
+## 2: Log model checkpoints to Neptune
 
 for k in model_checkpoint.best_k_models.keys():
     model_name = 'checkpoints/' + k.split('/')[-1]
     neptune_logger.experiment.log_artifact(k, model_name)
 
-## Step 7.3: Log best model checkpoint score to Neptune
+## 3: Log best model checkpoint score to Neptune
 
 neptune_logger.experiment.set_property('best_model_score', model_checkpoint.best_model_score.tolist())
 
-## Step 7.4 Log model summary
+## 4 Log model summary
 
 for chunk in [x for x in str(model).split('\n')]:
     neptune_logger.experiment.log_text('model_summary', str(chunk))
 
-## Step 7.5: Log number of GPU units used
+## 5: Log number of GPU units used
 
 neptune_logger.experiment.set_property('num_gpus', trainer.num_gpus)
 
