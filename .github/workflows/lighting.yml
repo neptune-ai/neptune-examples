@@ -1,5 +1,10 @@
 name: pytorch_lightning 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+  schedule:
+    - cron: '*/14 3 * * *' # Run once daily at arbitrary time at night
 jobs:
   test:
     runs-on: ubuntu-latest
