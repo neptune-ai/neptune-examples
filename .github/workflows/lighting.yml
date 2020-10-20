@@ -17,4 +17,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install -r requirements.txt
+      - run: python -m ci.build_lightning
       - run: python -m ci.test_lightning
