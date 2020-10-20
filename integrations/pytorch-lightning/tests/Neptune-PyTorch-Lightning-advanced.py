@@ -34,7 +34,7 @@ LightningModule_Params = {'image_size': 28,
                           'decay_factor': 0.95}
 
 LightningDataModule_Params = {'batch_size': 32,
-                              'num_workers': 4,
+                              'num_workers': 0,
                               'normalization_vector': ((0.1307,), (0.3081,)),}
 
 LearningRateMonitor_Params = {'logging_interval': 'epoch'}
