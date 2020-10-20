@@ -4,7 +4,7 @@
 
 ## Install necessary dependencies
 
-get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torch==1.6.0 torchvision==0.7.0')
+get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torch==1.6.0 torchvision==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html')
 
 ## Install additional dependencies
 
@@ -34,7 +34,7 @@ LightningModule_Params = {'image_size': 28,
                           'decay_factor': 0.95}
 
 LightningDataModule_Params = {'batch_size': 32,
-                              'num_workers': 4,
+                              'num_workers': 0,
                               'normalization_vector': ((0.1307,), (0.3081,)),}
 
 LearningRateMonitor_Params = {'logging_interval': 'epoch'}
