@@ -1,8 +1,10 @@
-# XGBoost integration
+# XGBoost + Neptune integration
 
-# Install dependencies
+# Before you start
 
-get_ipython().system('pip install neptune-client==0.4.122 neptune-contrib[monitoring]>=0.18.4 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.1')
+## Install dependencies
+
+get_ipython().system(' pip install neptune-client==0.4.122 neptune-contrib[monitoring]>=0.18.4 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.1 graphviz==0.14.2')
 
 import neptune
 import pandas as pd
@@ -10,8 +12,7 @@ import xgboost as xgb
 from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
 
-# here you import `neptune_calback` that does the magic (the open source magic :)
-from neptunecontrib.monitoring.xgboost_monitor import neptune_callback
+from neptunecontrib.monitoring.xgboost import neptune_callback
 
 # Set project
 
@@ -35,11 +36,10 @@ dtest = xgb.DMatrix(X_test, label=y_test)
 params = {'max_depth': 5,
           'eta': 0.5,
           'gamma': 0.1,
-          'silent': 1,
           'subsample': 1,
           'lambda': 1,
           'alpha': 0.35,
-          'objective': 'reg:linear',
+          'objective': 'reg:squarederror',
           'eval_metric': ['mae', 'rmse']}
 watchlist = [(dtest, 'eval'), (dtrain, 'train')]
 num_round = 20
