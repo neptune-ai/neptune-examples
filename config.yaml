@@ -1,23 +1,21 @@
 create_docs_paths: [
-  'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-basic.ipynb',
-  'integrations/pytorch-lightning/Neptune-PyTorch-Lightning-advanced.ipynb',
-  'integrations/xgboost/Neptune-XGBoost.ipynb',
-  'product-tours/how-it-works/Neptune-API-Tour.ipynb',
-  'quick-starts/first-experiment/Use-Neptune-API-to-log-your-first-experiment.ipynb',
-  'quick-starts/monitor-ml-runs/Monitor-ML-runs-live.ipynb',
-  'quick-starts/organize-ml-experimentation/Organize-ML-experiments.ipynb',
+  'integrations/xgboost/Neptune-XGBoost.ipynb'
 ]
 
 run_docs_paths:
   included_patterns: [
-#    '/docs',
+    '/docs',
     '/tests',
-#    '/showcase',
+    '/showcase',
   ]
   excluded_patterns: [
     '/.ipynb_checkpoints',
     '/.git',
-    '/integrations',
+    '/ci',
+    '/integrations/r',
+    '/integrations/xgboost',
+    '/product-tours',
+    '/quick-starts',
     'logging_snippets.ipynb',
     'Neptune-API-Tour.ipynb ',
     'Organize-ML-experiments.ipynb',
