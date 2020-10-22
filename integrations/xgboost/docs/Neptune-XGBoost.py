@@ -46,7 +46,7 @@ num_round = 20
 
 neptune.create_experiment(name='xgb', tags=['train'], params=params)
 xgb.train(params, dtrain, num_round, watchlist,
-          callbacks=[neptune_callback(log_tree=[0,1,2])])
+          callbacks=[neptune_callback()])
 
 neptune.stop()
 
@@ -54,7 +54,7 @@ neptune.stop()
 
 neptune.create_experiment(name='xgb', tags=['cv'], params=params)
 xgb.cv(params, dtrain, num_boost_round=num_round, nfold=7,
-       callbacks=[neptune_callback(log_tree=[0, 1, 2, 3, 4])])
+       callbacks=[neptune_callback()])
 
 neptune.stop()
 
@@ -65,6 +65,6 @@ reg = xgb.XGBRegressor(**params)
 reg.fit(X_train, y_train,
         eval_metric=['mae', 'rmse'],
         eval_set=[(X_test, y_test)],
-        callbacks=[neptune_callback(log_tree=[0,1])])
+        callbacks=[neptune_callback()])
 
 neptune.stop()
