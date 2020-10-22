@@ -4,9 +4,9 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install neptune-client==0.4.122 neptune-contrib[monitoring]>=0.18.4 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.1 graphviz==0.14.2')
+get_ipython().system(' pip install neptune-client==0.4.124 neptune-contrib[monitoring]==0.24.3 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.1')
 
-get_ipython().system(' pip install neptune-client neptune-contrib[monitoring] xgboost pandas scikit-learn graphviz --upgrade')
+get_ipython().system(' pip install neptune-client neptune-contrib[monitoring] xgboost pandas scikit-learn --upgrade')
 
 import neptune
 import pandas as pd
@@ -50,7 +50,7 @@ num_round = 20
 
 neptune.create_experiment(name='xgb', tags=['train'], params=params)
 xgb.train(params, dtrain, num_round, watchlist,
-          callbacks=[neptune_callback(log_tree=[0,1,2])])
+          callbacks=[neptune_callback()])
 
 neptune.stop()
 
@@ -58,7 +58,7 @@ neptune.stop()
 
 neptune.create_experiment(name='xgb', tags=['cv'], params=params)
 xgb.cv(params, dtrain, num_boost_round=num_round, nfold=7,
-       callbacks=[neptune_callback(log_tree=[0, 1, 2, 3, 4])])
+       callbacks=[neptune_callback()])
 
 neptune.stop()
 
@@ -69,6 +69,6 @@ reg = xgb.XGBRegressor(**params)
 reg.fit(X_train, y_train,
         eval_metric=['mae', 'rmse'],
         eval_set=[(X_test, y_test)],
-        callbacks=[neptune_callback(log_tree=[0,1])])
+        callbacks=[neptune_callback()])
 
 neptune.stop()
