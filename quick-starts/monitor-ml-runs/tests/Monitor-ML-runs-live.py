@@ -15,7 +15,7 @@ get_ipython().system(' pip install neptune-client==0.4.123 tensorflow==2.3.0')
 
 # Step 1: Create a basic training script
 
-import keras
+from tensorflow import keras
 
 # parameters
 PARAMS = {'epoch_nr': 10,
