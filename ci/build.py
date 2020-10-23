@@ -1,9 +1,8 @@
-import os
-from subprocess import call
+from glob import glob
 from pathlib import Path
 import re
+from subprocess import call
 
-import yaml
 
 def clean_py_script(filename):
     EXCLUDED_STR = ['# In[', '#!/usr', '# coding:']
@@ -96,11 +95,15 @@ def build(path):
     build_docs(path)
     build_showcase(path)
 
+source_files = []
+source_files.extend(glob('integrations/*/*.ipynb', recursive=True))
+source_files.extend(glob('product-tours/*/*.ipynb', recursive=True))
+source_files.extend(glob('quick-starts/*/*.ipynb', recursive=True))
+
+excluded_files = []
+excluded_files.extend(glob('integrations/r/*.ipynb', recursive=True))
+
 if __name__ == "__main__":
-    with open('config.yaml') as file:
-        config = yaml.load(file)
-
-    FILES_TO_CREATE = config['create_docs_paths']
-
-    for path in FILES_TO_CREATE:
-        build(path)
+    for path in source_files:
+        if path not in excluded_files:
+            build(path)

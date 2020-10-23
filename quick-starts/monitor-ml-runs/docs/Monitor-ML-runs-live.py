@@ -11,7 +11,7 @@
 
 # Step 1: Create a basic training script
 
-import keras
+from tensorflow import keras
 
 # parameters
 PARAMS = {'epoch_nr': 10,
