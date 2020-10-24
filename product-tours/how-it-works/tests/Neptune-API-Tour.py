@@ -3,7 +3,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.123')
+get_ipython().system(' pip install --user neptune-client==0.4.123')
 
 # Initialize Neptune
 
@@ -35,7 +35,7 @@ neptune.stop()
 
 # Keras classification example [Advanced]
 
-get_ipython().system('pip install tensorflow==2.3.0 scikit-plot==0.3.7')
+get_ipython().system(' pip install --user tensorflow==2.3.0 scikit-plot==0.3.7')
 
 import tensorflow as tf
 

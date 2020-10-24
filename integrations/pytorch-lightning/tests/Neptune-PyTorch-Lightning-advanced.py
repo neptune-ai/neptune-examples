@@ -4,11 +4,11 @@
 
 ## Install necessary dependencies
 
-get_ipython().system(' pip install pytorch-lightning==1.0.0 neptune-client==0.4.123 torch==1.6.0 torchvision==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html')
+get_ipython().system(' pip install --user pytorch-lightning==1.0.0 neptune-client==0.4.123 torch==1.6.0 torchvision==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html')
 
 ## Install additional dependencies
 
-get_ipython().system(' pip install scikit-learn==0.23.2 scikit-plot==0.3.7')
+get_ipython().system(' pip install --user scikit-learn==0.23.2 scikit-plot==0.3.7')
 
 # Step 1: Import Libraries
 
