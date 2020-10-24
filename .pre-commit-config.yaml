@@ -1,9 +1,0 @@
-repos:
--   repo: https://github.com/neptune-ai/docs
-    hooks:
-    -   id: build_artifacts_files
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.3.0
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
