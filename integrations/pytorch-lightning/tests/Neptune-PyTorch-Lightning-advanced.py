@@ -8,7 +8,7 @@ get_ipython().system(' pip install --user pytorch-lightning==1.0.0 neptune-clien
 
 ## Install additional dependencies
 
-get_ipython().system(' pip install --user scikit-learn==0.23.2 scikit-plot==0.3.7')
+get_ipython().system(' pip install --user numpy scikit-learn==0.23.2 scikit-plot==0.3.7')
 
 # Step 1: Import Libraries
 
