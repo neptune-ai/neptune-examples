@@ -1,0 +1,7 @@
+-   id: build_artifacts_files
+    name: Build artifact files
+    description: Builds examples for docs and showcases and tests
+    entry: ci/build
+    language: python
+    always_run: true
+    pass_filenames: false
