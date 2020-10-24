@@ -3,9 +3,9 @@
 
 # Setup
 
-get_ipython().system(' pip3 install --user neptune-client==0.4.123')
+get_ipython().system(' pip install neptune-client==0.4.123')
 
-get_ipython().system(' pip3 install --user --upgrade neptune-client')
+get_ipython().system(' pip install --upgrade neptune-client')
 
 # Initialize Neptune
 
