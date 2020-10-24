@@ -10,7 +10,7 @@ get_ipython().system(' pip install --user --upgrade pytorch-lightning neptune-cl
 
 ## Install additional dependencies
 
-get_ipython().system(' pip install --user numpy scikit-learn==0.23.2 scikit-plot==0.3.7')
+get_ipython().system(' pip install --user numpy==1.18.5 scikit-learn==0.23.2 scikit-plot==0.3.7')
 
 get_ipython().system(' pip install --user --upgrade numpy scikit-learn scikit-plot')
 
