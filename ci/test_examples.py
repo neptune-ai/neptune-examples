@@ -24,7 +24,7 @@ if os.name == 'nt': # if OS is Windows
     #     self.tk.call('image', 'delete', self.name)
     #
     # RuntimeError: main thread is not in main loop
-    excluded_files.extend('integrations\\xgboost\\tests\\Neptune-XGBoost_upgraded_libs.py')
+    excluded_files.append('integrations\\xgboost\\tests\\Neptune-XGBoost_upgraded_libs.py')
 
 
 @pytest.mark.parametrize("filename", [f for f in test_files if f not in excluded_files])
