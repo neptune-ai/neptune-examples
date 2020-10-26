@@ -2,7 +2,7 @@
 
 # Step 1: Install ```neptune-client```
 
-pip install neptune-client
+get_ipython().system(' pip install neptune-client')
 
 # Step 2: Initialize Neptune
 
