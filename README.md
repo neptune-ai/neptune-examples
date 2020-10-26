@@ -26,6 +26,7 @@ For each example you can:
     - Advanced [code](./integrations/pytorch-lightning/docs/Neptune-PyTorch-Lightning-advanced.py) [notebook](./integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb)
 - XGBoost [code](./integrations/xgboost/docs/Neptune-XGBoost.py) [notebook](./integrations/xgboost/showcase/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/showcase/Neptune-XGBoost.ipynb)
 - R [notebook](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
+- Google Colab [notebook](./integrations/showcase/Basic-Colab-Example.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/colab/showcase/Basic-Colab-Example.ipynb)
 
 ## Contributing
 
