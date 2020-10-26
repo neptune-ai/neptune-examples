@@ -14,22 +14,6 @@ import neptune
 
 neptune.init(project_qualified_name='shared/onboarding', api_token='ANONYMOUS')
 
-## Initialize a private project
-
-### Step 2(a): Get your Neptune API token
-# 
-# ![image](https://neptune.ai/wp-content/uploads/get_token.gif)
-
-### Step 2(b): Set the ```api_token``` to initialize Neptune
-
-from getpass import getpass
-
-api_token = getpass('Enter your private Neptune API token: ')
-
-### Step 2(c): Initialize your private project
-
-neptune.init(project_qualified_name='YOUR_USERNAME/sandbox', api_token=api_token)
-
 # Step 3: Create an experiment
 
 neptune.create_experiment()
