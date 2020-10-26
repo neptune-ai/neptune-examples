@@ -138,4 +138,4 @@ For example:
     - pytorch_lightning-integration.ipynb  
     - Template.ipynb       
     - xgboost-integration.ipynb
-- XGBoost integration is not tested on Win with Python 3.8, as it causes [tkinter error](https://github.com/neptune-ai/neptune-examples/runs/1309037471?check_suite_focus=true).
+- XGBoost integration (upgraded libs case) is not tested on Win with Python 3.8, as it causes [tkinter error](https://github.com/neptune-ai/neptune-examples/runs/1309037471?check_suite_focus=true).
