@@ -15,6 +15,18 @@ if os.name == 'nt': # if OS is Windows
     # Consider using the `--user` option or check the permissions.
     excluded_files.extend(glob('product-tours\\how-it-works\\tests\\*.py', recursive=True))
 
+    # Excluding because on a Windows CI server with Python 3.8, tkinter error occurs.
+    #
+    # Traceback (most recent call last):
+    #
+    #   File "c:\hostedtoolcache\windows\python\3.8.6\x64\lib\tkinter\__init__.py", line 4014, in __del__
+    #
+    #     self.tk.call('image', 'delete', self.name)
+    #
+    # RuntimeError: main thread is not in main loop
+    excluded_files.extend('integrations\\xgboost\\tests\\Neptune-XGBoost_upgraded_libs.py')
+
+
 @pytest.mark.parametrize("filename", [f for f in test_files if f not in excluded_files])
 def test_examples(filename):
     check_call('ipython ' + filename, shell=True)
