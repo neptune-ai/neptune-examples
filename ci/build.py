@@ -1,6 +1,8 @@
+import os
+import re
+
 from glob import glob
 from pathlib import Path
-import re
 from subprocess import call
 
 
@@ -102,7 +104,6 @@ source_files.extend(glob('quick-starts/*/*.ipynb', recursive=True))
 
 excluded_files = []
 excluded_files.extend(glob('integrations/r/*.ipynb', recursive=True))
-excluded_files.extend(glob('integrations\\r\\*.ipynb', recursive=True))
 
 if __name__ == "__main__":
     for path in source_files:
