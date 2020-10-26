@@ -1,4 +1,5 @@
 import os
+import sys
 
 from glob import glob
 from subprocess import check_call
@@ -15,6 +16,8 @@ if os.name == 'nt': # if OS is Windows
     # Consider using the `--user` option or check the permissions.
     excluded_files.extend(glob('product-tours\\how-it-works\\tests\\*.py', recursive=True))
 
+ # if OS is Windows and Python is 3.8
+if os.name == 'nt' and sys.version_info.major == 3 and sys.version_info.minor == 8:
     # Excluding because on a Windows CI server with Python 3.8, tkinter error occurs.
     #
     # Traceback (most recent call last):
