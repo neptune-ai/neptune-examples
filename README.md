@@ -139,3 +139,4 @@ For example:
     - Template.ipynb       
     - xgboost-integration.ipynb
 - XGBoost integration (upgraded libs case) is not tested on Win with Python 3.8, as it causes [tkinter error](https://github.com/neptune-ai/neptune-examples/runs/1309037471?check_suite_focus=true).
+- "Neptune-API-Tour" (product-tours) is not tested on Windows, because unable to install Tensorflow on a Windows CI server ([error msg](https://github.com/neptune-ai/neptune-examples/pull/17/checks?check_run_id=1308563484#step:10:328)).
