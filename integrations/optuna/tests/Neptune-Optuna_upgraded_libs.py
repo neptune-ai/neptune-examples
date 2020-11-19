@@ -83,6 +83,35 @@ neptune.stop()
 
 ## Log charts and study object during sweep
 
+# Create experiment
+neptune.create_experiment('optuna-sweep-advanced')
+
+# Create callback to log advanced options during the sweep
+neptune_callback = opt_utils.NeptuneCallback(log_study=True, log_charts=True)
+
+# Run Optuna with Neptune Callback
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=20, callbacks=[neptune_callback])
+
+# Stop logging 
+neptune.stop()
+
 ## Log charts and study object after the sweep
+
+# Create experiment
+neptune.create_experiment('optuna-sweep-advanced')
+
+# Create Neptune callback
+neptune_callback = opt_utils.NeptuneCallback()
+
+# Run Optuna with Neptune Callback
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=100, callbacks=[neptune_callback])
+
+# Log Optuna charts and study object after the sweep is complete
+opt_utils.log_study_info(study)
+
+# Stop logging 
+neptune.stop()
 
 # Explore results in the Neptune UI
