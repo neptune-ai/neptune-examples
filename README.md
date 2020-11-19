@@ -25,6 +25,7 @@ For each example you can:
     - Basic [code](./integrations/pytorch-lightning/docs/Neptune-PyTorch-Lightning-basic.py) [notebook](./integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-basic.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-basic.ipynb)
     - Advanced [code](./integrations/pytorch-lightning/docs/Neptune-PyTorch-Lightning-advanced.py) [notebook](./integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb)
 - XGBoost [code](./integrations/xgboost/docs/Neptune-XGBoost.py) [notebook](./integrations/xgboost/showcase/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/showcase/Neptune-XGBoost.ipynb)
+- Optuna [code](./integrations/optuna/docs/Neptune-Optuna.py) [notebook](./integrations/optuna/showcase/Neptune-Optuna.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/optuna/showcase/Neptune-Optuna.ipynb)
 - R [notebook](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
 - Google Colab [notebook](./integrations/showcase/Basic-Colab-Example.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/colab/showcase/Basic-Colab-Example.ipynb)
 
@@ -61,7 +62,7 @@ For each example notebook you create the following artifacts will be created aut
 To do it run:
 
 ```bash
-python ci/create.py
+python ci/build.py
 ```
 
 To run all of those scripts execute:
