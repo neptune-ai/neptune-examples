@@ -2,7 +2,7 @@ name: neptune-examples
 on:
   schedule:
     - cron: '*/14 3 * * *' # Run once daily at arbitrary time (3:14 AM UTC)
-  workflow_dispatch:
+  workflow_dispatch: # Dummy change
 jobs:
   test:
     runs-on: ${{ matrix.os }}
