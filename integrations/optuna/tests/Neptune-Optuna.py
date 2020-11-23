@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(" pip install --quiet optuna==2.3.0 neptune-client==0.4.125 neptune-contrib['monitoring']==0.24.8")
+get_ipython().system(" pip install --quiet optuna==2.3.0 neptune-client==0.4.125 neptune-contrib['monitoring']==0.24.9")
 
 ## Import libraries
 
