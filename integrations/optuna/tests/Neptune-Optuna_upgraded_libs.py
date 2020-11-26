@@ -25,12 +25,13 @@ def objective(trial):
    dtrain = lgb.Dataset(train_x, label=train_y)
 
    param = {
+      'verbose': -1,
       'objective': 'binary',
       'metric': 'binary_logloss',
       'num_leaves': trial.suggest_int('num_leaves', 2, 256),
-      'feature_fraction': trial.suggest_uniform('feature_fraction', 0.4, 1.0),
-      'bagging_fraction': trial.suggest_uniform('bagging_fraction', 0.4, 1.0),
-      'min_child_samples': trial.suggest_int('min_child_samples', 5, 100),
+      'feature_fraction': trial.suggest_uniform('feature_fraction', 0.2, 1.0),
+      'bagging_fraction': trial.suggest_uniform('bagging_fraction', 0.2, 1.0),
+      'min_child_samples': trial.suggest_int('min_child_samples', 3, 100),
    }
 
    gbm = lgb.train(param, dtrain)
@@ -66,15 +67,29 @@ study.optimize(objective, n_trials=100, callbacks=[neptune_callback])
 
 # tests
 
+import time
+
+time.sleep(5)
+
 exp = neptune.get_experiment()
+all_logs = exp.get_logs()
 
 ## check logs
 correct_logs = ['run_score', 'best_so_far_run_score', 'run_parameters']
 
-if set(exp.get_logs().keys()) != set(correct_logs):
+if set(all_logs.keys()) != set(correct_logs):
     raise ValueError('incorrect metrics')
 
-if int(exp.get_logs()['run_score'].x) != 99:
+## check run_parameters
+correct_parameters = ['num_leaves', 'feature_fraction', 'bagging_fraction', 'min_child_samples']
+
+run_parameters = eval(all_logs['run_parameters'].y)
+
+if run_parameters.keys() != set(correct_parameters):
+    raise ValueError('incorrect run parameters')
+
+if int(all_logs['run_score'].x) != 99:
+    print(int(all_logs['run_score'].x))
     raise ValueError('wrong number of iterations logged')
 
 neptune.stop()
