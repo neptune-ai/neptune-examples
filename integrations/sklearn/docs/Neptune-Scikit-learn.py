@@ -27,7 +27,8 @@ import neptune
 from neptunecontrib.monitoring.sklearn import log_regressor_summary
 
 neptune.init('shared/sklearn-integration')
-neptune.create_experiment(tags=['RandomForestRegressor', 'regression'])
+neptune.create_experiment(name='regression-example',
+                          tags=['RandomForestRegressor', 'regression'])
 
 log_regressor_summary(rfr, X_train, X_test, y_train, y_test)
 
@@ -58,7 +59,8 @@ import neptune
 from neptunecontrib.monitoring.sklearn import log_classifier_summary
 
 neptune.init('shared/sklearn-integration')
-neptune.create_experiment(tags=['GradientBoostingClassifier', 'classification'])
+neptune.create_experiment(name='classification-example',
+                          tags=['GradientBoostingClassifier', 'classification'])
 
 log_classifier_summary(gbc, X_train, X_test, y_train, y_test)
 
@@ -85,7 +87,8 @@ import neptune
 from neptunecontrib.monitoring.sklearn import log_kmeans_clustering_summary
 
 neptune.init('shared/sklearn-integration')
-neptune.create_experiment(tags=['KMeans', 'clustering'])
+neptune.create_experiment(name='clustering-example',
+                          tags=['KMeans', 'clustering'])
 
 log_kmeans_clustering_summary(km, k=11, data=X)
 
