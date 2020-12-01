@@ -4,9 +4,9 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html pytorch==1.7.0 neptune-client==0.4.126')
+get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html torch==1.7.0 neptune-client==0.4.126')
 
-get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html pytorch neptune-client --upgrade')
+get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html torch neptune-client --upgrade')
 
 ## Import libraries
 
