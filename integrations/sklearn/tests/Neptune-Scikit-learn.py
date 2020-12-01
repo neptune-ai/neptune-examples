@@ -123,7 +123,7 @@ neptune.stop() # close experiment after logging summary
 
 ## Explore Results
 
-# Scikit-learn kmeans clustering
+# Scikit-learn KMeans clustering
 
 ## Step 1: Import libraries
 
@@ -145,7 +145,7 @@ neptune.init('shared/sklearn-integration')
 neptune.create_experiment(name='clustering-example',
                           tags=['KMeans', 'clustering'])
 
-log_kmeans_clustering_summary(km, data=X, k=11)
+log_kmeans_clustering_summary(km, X, n_clusters=17)
 
 # tests
 exp = neptune.get_experiment()
@@ -295,7 +295,7 @@ def run_clustering():
 
 def train_clustering(model, name, tag, data):
     neptune.create_experiment(tags=[name, tag, 'clustering'])
-    log_kmeans_clustering_summary(model, data=data)
+    log_kmeans_clustering_summary(model, X)
     neptune.stop()
 
 run_regressors_single_output()
