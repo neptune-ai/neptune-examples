@@ -35,7 +35,6 @@ train_loader = torch.utils.data.DataLoader(
                    train=True,
                    download=True,
                    transform=transforms.Compose([transforms.ToTensor()])),
-#                                                  transforms.Normalize((0.1307,), (0.3081,))])),
    batch_size=64,
    shuffle=True)
 
