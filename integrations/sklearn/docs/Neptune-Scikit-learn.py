@@ -90,7 +90,7 @@ neptune.init('shared/sklearn-integration')
 neptune.create_experiment(name='clustering-example',
                           tags=['KMeans', 'clustering'])
 
-log_kmeans_clustering_summary(km, k=11, data=X)
+log_kmeans_clustering_summary(km, data=X, k=11)
 
 neptune.stop() # close experiment after logging summary
 
