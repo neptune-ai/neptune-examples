@@ -21,7 +21,7 @@ from scikitplot.metrics import plot_roc, plot_precision_recall
 
 # Step 2: Select project
 
-neptune.init('neptune-ai/tour-with-tf-keras-tests',
+neptune.init('shared/tour-with-tf-keras-tests',
              api_token='ANONYMOUS')
 
 # Step 3: Prepare params
@@ -97,6 +97,7 @@ model.summary(print_fn=lambda x: neptune.log_text('model_summary', x))
 model.fit(x_train, y_train,
           batch_size=parameters['batch_size'],
           epochs=parameters['n_epochs'],
+          validation_split=0.2,
           callbacks=[NeptuneMonitor()])
 
 # Step 11: Log model weights
@@ -135,6 +136,7 @@ exp = neptune.get_experiment()
 ## check logs
 correct_logs = ['train data sample', 'model_summary', 'batch_loss', 'batch_accuracy',
                'epoch_loss', 'epoch_accuracy', 'test_loss', 'test_accuracy',
+                'epoch_val_loss', 'epoch_val_accuracy',
                 'model-performance-visualizations']
 
 if set(exp.get_logs().keys()) != set(correct_logs):
