@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html torch==1.7.0 torchvision==0.8.1 neptune-client==0.4.126')
+get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html torch==1.7.0 torchvision==0.8.1 neptune-client==0.4.128')
 
 get_ipython().system(' pip install --quiet -f https://download.pytorch.org/whl/torch_stable.html torch torchvision neptune-client --upgrade')
 
@@ -131,7 +131,7 @@ for batch_idx, (data, target) in enumerate(train_loader):
             description = '\n'.join(['class {}: {}'.format(i, pred) 
                                      for i, pred in enumerate(F.softmax(prediction))])
             neptune.log_image('predictions', 
-                              image.squeeze().detach().numpy() * 255, 
+                              image.squeeze(), 
                               description=description)
                                                
     if batch_idx == PARAMS['iterations']:

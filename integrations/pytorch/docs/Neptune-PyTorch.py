@@ -110,7 +110,7 @@ for batch_idx, (data, target) in enumerate(train_loader):
             description = '\n'.join(['class {}: {}'.format(i, pred) 
                                      for i, pred in enumerate(F.softmax(prediction))])
             neptune.log_image('predictions', 
-                              image.squeeze().detach().numpy() * 255, 
+                              image.squeeze(), 
                               description=description)
                                                
     if batch_idx == PARAMS['iterations']:
