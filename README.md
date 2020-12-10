@@ -21,6 +21,7 @@ For each example you can:
 
 ## Integrations
 
+- PyTorch [code](./integrations/pytorch/docs/Neptune-PyTorch.py) [notebook](./integrations/pytorch/showcase/Neptune-PyTorch.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch/showcase/Neptune-PyTorch.ipynb)
 - PyTorch Lightning
     - Basic [code](./integrations/pytorch-lightning/docs/Neptune-PyTorch-Lightning-basic.py) [notebook](./integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-basic.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-basic.ipynb)
     - Advanced [code](./integrations/pytorch-lightning/docs/Neptune-PyTorch-Lightning-advanced.py) [notebook](./integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/pytorch-lightning/showcase/Neptune-PyTorch-Lightning-advanced.ipynb)
