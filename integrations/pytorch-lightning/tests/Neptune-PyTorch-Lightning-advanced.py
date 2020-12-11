@@ -288,7 +288,6 @@ neptune_logger.experiment.stop()
 # Explore Results
 
 # tests
-exp = neptune_logger.experiment.id
 
 ## check data size
 ### train
