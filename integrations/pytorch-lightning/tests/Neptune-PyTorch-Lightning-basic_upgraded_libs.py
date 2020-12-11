@@ -83,5 +83,7 @@ if len(train_loader) != 1875:
 ## check logs
 correct_logs = ['train_loss', 'epoch']
 
+neptune_logger.experiment.stop()
+
 if set(neptune_logger.experiment.get_logs().keys()) != set(correct_logs):
     raise ValueError('incorrect metrics')
