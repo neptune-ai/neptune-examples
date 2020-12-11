@@ -292,7 +292,6 @@ neptune_logger.experiment.stop()
 # Explore Results
 
 # tests
-exp = neptune_logger.experiment.id
 
 ## check data size
 ### train
@@ -314,8 +313,6 @@ correct_logs = ['train_loss', 'train_acc', 'val_loss', 'val_acc', 'test_loss', '
                 'grad_2.0_norm_layer_2.weight', 'grad_2.0_norm_layer_2.bias',
                 'grad_2.0_norm_total',
                 'test_misclassified_images', 'confusion_matrix', 'model_summary']
-
-neptune_logger.experiment.stop()
 
 if set(neptune_logger.experiment.get_logs().keys()) != set(correct_logs):
     raise ValueError('incorrect metrics')
