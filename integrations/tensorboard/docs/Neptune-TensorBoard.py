@@ -141,7 +141,6 @@ y_test_pred = model.predict(x_test)
 
 fig, ax = plt.subplots()
 plot_roc(y_test, y_test_pred, ax=ax)
-plt.close()
 
 ## Log chart to Neptune as interactive Plotly chart
 

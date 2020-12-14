@@ -152,7 +152,7 @@ neptune.log_artifact('my_model')
 
 ## Install neptune-contrib
 
-get_ipython().system(' pip install --quiet neptune-contrib==0.24.9 matplotlib==3.3.3 scikit-plot==0.3.7')
+get_ipython().system(' pip install --quiet neptune-contrib==0.24.9 matplotlib==3.2.0 scikit-plot==0.3.7 plotly==4.12.0')
 
 ## Create chart
 
@@ -163,7 +163,6 @@ y_test_pred = model.predict(x_test)
 
 fig, ax = plt.subplots()
 plot_roc(y_test, y_test_pred, ax=ax)
-plt.close()
 
 ## Log chart to Neptune as interactive Plotly chart
 
