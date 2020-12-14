@@ -30,17 +30,16 @@ rfr.fit(X_train, y_train)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_regressor_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='regression-example',
-                          tags=['RandomForestRegressor', 'regression'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='regression-example',
+                                tags=['RandomForestRegressor', 'regression'])
 
-log_regressor_summary(rfr, X_train, X_test, y_train, y_test)
+log_regressor_summary(rfr, X_train, X_test, y_train, y_test, experiment=exp)
 
 # tests
-exp = neptune.get_experiment()
-
 # check logs
-correct_logs_set = {'evs_sklearn', 'me_sklearn', 'mae_sklearn', 'r2_sklearn', 'charts_sklearn'}
+correct_logs_set = {'evs_test_sklearn', 'me_test_sklearn', 'mae_test_sklearn', 'r2_test_sklearn', 'charts_sklearn'}
 from_exp_logs = set(exp.get_logs().keys())
 assert correct_logs_set == from_exp_logs, '{} - incorrect logs'.format(exp)
 
@@ -61,7 +60,9 @@ with tempfile.TemporaryDirectory() as d:
 
 assert np.array_equal(model.predict(X_test), rfr.predict(X_test)), '{} estimator error'.format(exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore results
 
@@ -87,20 +88,19 @@ gbc.fit(X_train, y_train)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_classifier_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='classification-example',
-                          tags=['GradientBoostingClassifier', 'classification'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='classification-example',
+                                tags=['GradientBoostingClassifier', 'classification'])
 
-log_classifier_summary(gbc, X_train, X_test, y_train, y_test)
+log_classifier_summary(gbc, X_train, X_test, y_train, y_test, experiment=exp)
 
 # tests
-exp = neptune.get_experiment()
-
 # check logs
 correct_logs_set = {'charts_sklearn'}
 for name in ['precision', 'recall', 'fbeta_score', 'support']:
     for i in range(10):
-        correct_logs_set.add('{}_class_{}_sklearn'.format(name, i))
+        correct_logs_set.add('{}_class_{}_test_sklearn'.format(name, i))
 from_exp_logs = set(exp.get_logs().keys())
 assert correct_logs_set == from_exp_logs, '{} - incorrect logs'.format(exp)
 
@@ -121,7 +121,9 @@ with tempfile.TemporaryDirectory() as d:
 
 assert np.array_equal(model.predict_proba(X_test), gbc.predict_proba(X_test)), '{} estimator error'.format(exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore Results
 
@@ -143,15 +145,14 @@ X, y = make_blobs(n_samples=579, n_features=17, centers=7, random_state=28743)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_kmeans_clustering_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='clustering-example',
-                          tags=['KMeans', 'clustering'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='clustering-example',
+                                tags=['KMeans', 'clustering'])
 
-log_kmeans_clustering_summary(km, X, n_clusters=17)
+log_kmeans_clustering_summary(km, X, n_clusters=17, experiment=exp)
 
 # tests
-exp = neptune.get_experiment()
-
 # check logs
 assert list(exp.get_logs().keys()) == ['charts_sklearn'], '{} - incorrect logs'.format(exp)
 
@@ -161,7 +162,9 @@ assert X.shape[0] == len(km.labels_), '{} incorrect number of cluster labels'.fo
 # check parameters
 assert set(exp.get_properties().keys()) == set(km.get_params().keys()), '{} parameters do not match'.format(exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore Results
 
@@ -181,7 +184,8 @@ from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
 
 from neptunecontrib.monitoring.sklearn import log_regressor_summary, log_classifier_summary,     log_kmeans_clustering_summary
 
-neptune.init('shared/sklearn-integration')
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
 
 def run_regressors_single_output():
     # Data

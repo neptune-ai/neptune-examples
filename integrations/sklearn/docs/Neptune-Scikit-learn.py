@@ -26,13 +26,16 @@ rfr.fit(X_train, y_train)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_regressor_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='regression-example',
-                          tags=['RandomForestRegressor', 'regression'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='regression-example',
+                                tags=['RandomForestRegressor', 'regression'])
 
-log_regressor_summary(rfr, X_train, X_test, y_train, y_test)
+log_regressor_summary(rfr, X_train, X_test, y_train, y_test, experiment=exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore results
 
@@ -58,13 +61,16 @@ gbc.fit(X_train, y_train)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_classifier_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='classification-example',
-                          tags=['GradientBoostingClassifier', 'classification'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='classification-example',
+                                tags=['GradientBoostingClassifier', 'classification'])
 
-log_classifier_summary(gbc, X_train, X_test, y_train, y_test)
+log_classifier_summary(gbc, X_train, X_test, y_train, y_test, experiment=exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore Results
 
@@ -86,12 +92,15 @@ X, y = make_blobs(n_samples=579, n_features=17, centers=7, random_state=28743)
 import neptune
 from neptunecontrib.monitoring.sklearn import log_kmeans_clustering_summary
 
-neptune.init('shared/sklearn-integration')
-neptune.create_experiment(name='clustering-example',
-                          tags=['KMeans', 'clustering'])
+neptune.init('shared/sklearn-integration',
+             api_token='ANONYMOUS')
+exp = neptune.create_experiment(name='clustering-example',
+                                tags=['KMeans', 'clustering'])
 
-log_kmeans_clustering_summary(km, X, n_clusters=17)
+log_kmeans_clustering_summary(km, X, n_clusters=17, experiment=exp)
 
-neptune.stop() # close experiment after logging summary
+## Step 4: Stop Neptune experiment after logging summary
+
+exp.stop()
 
 ## Explore Results
