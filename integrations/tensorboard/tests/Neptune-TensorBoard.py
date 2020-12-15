@@ -53,7 +53,7 @@ get_ipython().system(' neptune tensorboard logs')
 # 
 # Click on the link(s) above to browse the TensorBoard run in Neptune or go to [shared/tensorflow-integration project](https://ui.neptune.ai/o/shared/org/tensorboard-integration/experiments?viewId=def2c858-3510-4bf9-9e52-8720fadecb11).
 
-# Log new runs to Neptune via TensorBoard
+# Log runs live to Neptune via TensorBoard
 
 # Step 1: Initialize Neptune
 

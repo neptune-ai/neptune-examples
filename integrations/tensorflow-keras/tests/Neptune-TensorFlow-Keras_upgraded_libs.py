@@ -4,11 +4,9 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install --quiet tensorflow==2.3.1 neptune-client==0.4.129 neptune-contrib==0.24.9')
+get_ipython().system(' pip install --quiet tensorflow==2.3.1 neptune-client==0.4.129 neptune-contrib==0.25')
 
 get_ipython().system(' pip install --quiet tensorflow neptune-client neptune-contrib --upgrade')
-
-pip freeze | grep neptune
 
 ## Import libraries
 

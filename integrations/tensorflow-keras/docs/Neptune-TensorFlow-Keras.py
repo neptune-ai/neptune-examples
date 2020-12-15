@@ -2,8 +2,6 @@
 
 # Before we start
 
-pip freeze | grep neptune
-
 ## Import libraries
 
 import tensorflow as tf
