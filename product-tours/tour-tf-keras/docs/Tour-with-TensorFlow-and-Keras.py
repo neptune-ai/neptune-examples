@@ -16,7 +16,7 @@ neptune.init('shared/tour-with-tf-keras',
 
 # Step 3: Create Neptune experiment
 
-neptune.create_experiment(name='keras-training-basic')
+neptune.create_experiment(name='tf-keras-training-basic')
 
 # Step 4: Prepare dataset and model
 
@@ -66,19 +66,6 @@ neptune.stop()
 
 # Install additional dependencies
 
-# Import Libraries
-
-import hashlib
-
-import matplotlib.pyplot as plt
-import neptune
-import numpy as np
-import pandas as pd
-import tensorflow as tf
-from neptunecontrib.api import log_table
-from neptunecontrib.monitoring.keras import NeptuneMonitor
-from scikitplot.metrics import plot_roc, plot_precision_recall
-
 # Select Neptune project
 
 neptune.init('shared/tour-with-tf-keras',
@@ -95,11 +82,13 @@ parameters = {'dense_units': 32,
 
 # Create Neptune experiment and log parameters
 
-neptune.create_experiment(name='keras-training-advanced',
+neptune.create_experiment(name='tf-keras-training-advanced',
                           tags=['keras', 'fashion-mnist'],
                           params=parameters)
 
 # Prepare dataset and log data version
+
+import hashlib
 
 # prepare dataset
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
@@ -158,6 +147,10 @@ neptune.log_artifact('model')
 
 # Log predictions as table
 
+import numpy as np
+import pandas as pd
+from neptunecontrib.api import log_table
+
 y_pred_proba = model.predict(x_test)
 y_pred = np.argmax(y_pred_proba, axis=1)
 y_pred = y_pred
@@ -165,6 +158,9 @@ df = pd.DataFrame(data={'y_test': y_test, 'y_pred': y_pred, 'y_pred_probability'
 log_table('predictions', df)
 
 # Log model performance visualizations
+
+import matplotlib.pyplot as plt
+from scikitplot.metrics import plot_roc, plot_precision_recall
 
 fig, ax = plt.subplots()
 plot_roc(y_test, y_pred_proba, ax=ax)
