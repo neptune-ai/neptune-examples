@@ -1,8 +1,10 @@
-# Tour With TensorFlow and Keras
+# Tour with TensorFlow and Keras
 
 # Install dependencies
 
-get_ipython().system(' pip install neptune-client==0.4.129 neptune-contrib==0.24.9 tensorflow==2.3.1 scikit-plot==0.3.7 matplotlib==3.3.3')
+get_ipython().system(' pip install --quiet neptune-client==0.4.129 neptune-contrib==0.25.0 tensorflow==2.3.1')
+
+get_ipython().system(' pip install --quiet neptune-client neptune-contrib tensorflow --upgrade')
 
 # Basic Tour
 
@@ -18,7 +20,7 @@ neptune.init('shared/tour-with-tf-keras',
 
 # Step 3: Create Neptune experiment
 
-exp = neptune.create_experiment(name='keras-training-basic')
+neptune.create_experiment(name='keras-training-basic')
 
 # Step 4: Prepare dataset and model
 
@@ -58,7 +60,14 @@ model.fit(x_train, y_train,
 eval_metrics = model.evaluate(x_test, y_test, verbose=0)
 
 for j, metric in enumerate(eval_metrics):
-    exp.log_metric('test_{}'.format(model.metrics_names[j]), metric)
+    neptune.log_metric('test_{}'.format(model.metrics_names[j]), metric)
+
+# tests
+exp = neptune.get_experiment()
+
+# Step 7: Stop experiment at the end
+
+neptune.stop()
 
 # tests
 ## check logs
@@ -68,13 +77,15 @@ correct_logs = ['batch_loss', 'batch_accuracy', 'epoch_loss', 'epoch_accuracy', 
 if set(exp.get_logs().keys()) != set(correct_logs):
     raise ValueError('incorrect metrics')
 
-# Step 7: Stop experiment at the end
+# More logging options
 
-exp.stop()
+# Install additional dependencies
 
-# Advanced Tour
+get_ipython().system(' pip install --quiet scikit-plot==0.3.7 matplotlib==3.3.3')
 
-# Step 1: Import Libraries
+get_ipython().system(' pip install --quiet scikit-plot matplotlib --upgrade')
+
+# Import Libraries
 
 import hashlib
 
@@ -87,12 +98,12 @@ from neptunecontrib.api import log_table
 from neptunecontrib.monitoring.keras import NeptuneMonitor
 from scikitplot.metrics import plot_roc, plot_precision_recall
 
-# Step 2: Select Neptune project
+# Select Neptune project
 
 neptune.init('shared/tour-with-tf-keras',
              api_token='ANONYMOUS')
 
-# Step 3: Prepare params
+# Prepare params
 
 parameters = {'dense_units': 32,
               'activation': 'relu',
@@ -101,13 +112,13 @@ parameters = {'dense_units': 32,
               'batch_size': 32,
               'n_epochs': 10}
 
-# Step 4: Create Neptune experiment and log parameters
+# Create Neptune experiment and log parameters
 
-exp = neptune.create_experiment(name='keras-training-advanced',
-                                tags=['keras', 'fashion-mnist'],
-                                params=parameters)
+neptune.create_experiment(name='keras-training-advanced',
+                          tags=['keras', 'fashion-mnist'],
+                          params=parameters)
 
-# Step 5: Prepare dataset and log data version
+# Prepare dataset and log data version
 
 # prepare dataset
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
@@ -125,7 +136,7 @@ neptune.set_property('y_test_version', hashlib.md5(y_test).hexdigest())
 
 neptune.set_property('class_names', class_names)
 
-# Step 6: Prepare model and log model architecture summary
+# Prepare model and log model architecture summary
 
 # prepare model
 model = tf.keras.Sequential([
@@ -142,9 +153,9 @@ model.compile(optimizer=optimizer,
               metrics=['accuracy'])
 
 # log model summary
-model.summary(print_fn=lambda x: exp.log_text('model_summary', x))
+model.summary(print_fn=lambda x: neptune.log_text('model_summary', x))
 
-# Step 7: Use NeptuneMonitor callback to log metrics during training
+# Use NeptuneMonitor callback to log metrics during training
 
 model.fit(x_train, y_train,
           batch_size=parameters['batch_size'],
@@ -152,21 +163,19 @@ model.fit(x_train, y_train,
           validation_split=0.2,
           callbacks=[NeptuneMonitor()])
 
-# Step 8: Log model evaluation metrics
+# Log model evaluation metrics
 
 eval_metrics = model.evaluate(x_test, y_test, verbose=0)
 
 for j, metric in enumerate(eval_metrics):
-    exp.log_metric('test_{}'.format(model.metrics_names[j]), metric)
+    neptune.log_metric('test_{}'.format(model.metrics_names[j]), metric)
 
-# More logging options
-
-## Log model weights after training
+# Log model weights after training
 
 model.save('model')
-exp.log_artifact('model')
+neptune.log_artifact('model')
 
-## Log predictions as table
+# Log predictions as table
 
 y_pred_proba = model.predict(x_test)
 y_pred = np.argmax(y_pred_proba, axis=1)
@@ -174,18 +183,18 @@ y_pred = y_pred
 df = pd.DataFrame(data={'y_test': y_test, 'y_pred': y_pred, 'y_pred_probability': y_pred_proba.max(axis=1)})
 log_table('predictions', df)
 
-## Log model performance visualizations
+# Log model performance visualizations
 
 fig, ax = plt.subplots()
 plot_roc(y_test, y_pred_proba, ax=ax)
-exp.log_image('model-performance-visualizations', fig, image_name='ROC')
+neptune.log_image('model-performance-visualizations', fig, image_name='ROC')
 
 fig, ax = plt.subplots()
 plot_precision_recall(y_test, y_pred_proba, ax=ax)
-exp.log_image('model-performance-visualizations', fig, image_name='precision recall')
+neptune.log_image('model-performance-visualizations', fig, image_name='precision recall')
 plt.close('all')
 
-## Log train data sample (images per class)
+# Log train data sample (images per class)
 
 for j, class_name in enumerate(class_names):
     plt.figure(figsize=(10, 10))
@@ -197,8 +206,15 @@ for j, class_name in enumerate(class_names):
         plt.grid(False)
         plt.imshow(x_train[label_[0][i]], cmap=plt.cm.binary)
         plt.xlabel(class_names[j])
-    exp.log_image('train data sample', plt.gcf())
+    neptune.log_image('train data sample', plt.gcf())
     plt.close('all')
+
+# tests
+exp = neptune.get_experiment()
+
+# Stop experiment at the end
+
+neptune.stop()
 
 # tests
 ## check logs
@@ -209,9 +225,3 @@ correct_logs = ['train data sample', 'model_summary', 'batch_loss', 'batch_accur
 
 if set(exp.get_logs().keys()) != set(correct_logs):
     raise ValueError('incorrect metrics')
-
-neptune.stop()
-
-# Stop experiment at the end
-
-exp.stop()
