@@ -67,4 +67,8 @@ model = LitModel()
 
 trainer.fit(model, train_loader)
 
+# Step 7: Stop Neptune logger at the end
+
+neptune_logger.experiment.stop()
+
 # Explore Results
