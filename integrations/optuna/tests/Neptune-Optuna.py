@@ -64,12 +64,11 @@ study.optimize(objective, n_trials=100, callbacks=[neptune_callback])
 ## Step 4: Stop logging
 
 # tests
-
-import time
-
-time.sleep(5)
-
 exp = neptune.get_experiment()
+
+neptune.stop()
+
+# tests
 all_logs = exp.get_logs()
 
 ## check logs
@@ -89,8 +88,6 @@ if run_parameters.keys() != set(correct_parameters):
 if int(all_logs['run_score'].x) != 99:
     print(int(all_logs['run_score'].x))
     raise ValueError('wrong number of iterations logged')
-
-neptune.stop()
 
 # Advanced Options
 
