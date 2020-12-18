@@ -18,6 +18,7 @@ For each example you can:
 ## Product Tours
 
 - Neptune API Tour [code](./product-tours/how-it-works/docs/Neptune-API-Tour.py) [notebook](./product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb)
+- Tour with TensorFlow and Keras [code](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.py) [notebook](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/tour-tf-keras/showcase/Tour-with-TensorFlow-and-Keras.ipynb)
 
 ## Integrations
 
