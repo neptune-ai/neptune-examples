@@ -4,9 +4,9 @@
 
 ## Install Dependencies
 
-pip install --quiet lightgbm==2.2.3 neptune-client==0.4.130 neptune-contrib[monitoring]==0.25.0
+get_ipython().system(' pip install --quiet lightgbm==2.2.3 neptune-client==0.4.130 neptune-contrib[monitoring]==0.25.0')
 
-pip install --quiet lightgbm neptune-client neptune-contrib[monitoring] --upgrade
+get_ipython().system(' pip install --quiet lightgbm neptune-client neptune-contrib[monitoring] --upgrade')
 
 ## Import Libraries
 
@@ -55,9 +55,29 @@ gbm = lgb.train(params,
 
 ## Step 3: Stop logging.
 
+# tests
+
+exp = neptune.get_experiment()
+
 neptune.stop()
 
+# tests
+
+all_logs = exp.get_logs()
+
+## check logs
+correct_logs = ['train_multi_logloss', 'train_multi_logloss', 'valid_multi_logloss', 'valid_multi_logloss']
+
+if set(all_logs.keys()) != set(correct_logs):
+    raise ValueError('incorrect metrics')
+
 # More Options
+
+## Log hardware consumption
+
+get_ipython().system(' pip install --quiet psutil==5.6.6')
+
+get_ipython().system(' pip install --quiet psutil')
 
 ## Log Hyperparameters
 
@@ -93,7 +113,7 @@ neptune.log_artifact('lightgbm.pkl')
 
 ### 1. Install dependencies
 
-pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0
+get_ipython().system(' pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0')
 
 ### 2. Create an ROC AUC curve
 
@@ -114,6 +134,20 @@ log_chart(name='ROC curve', chart=fig)
 
 ## Stop logging
 
+# tests
+
+exp = neptune.get_experiment()
+
 neptune.stop()
+
+# tests
+
+all_logs = exp.get_logs()
+
+## check logs
+correct_logs = ['train_multi_logloss', 'train_multi_logloss', 'valid_multi_logloss', 'valid_multi_logloss']
+
+if set(all_logs.keys()) != set(correct_logs):
+    raise ValueError('incorrect metrics')
 
 # Explore results in the Neptune UI

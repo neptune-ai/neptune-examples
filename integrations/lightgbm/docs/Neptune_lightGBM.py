@@ -53,6 +53,8 @@ neptune.stop()
 
 # More Options
 
+## Log hardware consumption
+
 ## Log Hyperparameters
 
 params = {'boosting_type': 'gbdt',
