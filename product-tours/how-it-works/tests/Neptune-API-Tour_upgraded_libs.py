@@ -3,7 +3,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.126')
+get_ipython().system(' pip install neptune-client==0.4.130')
 
 get_ipython().system(' pip install neptune-client --upgrade')
 
@@ -28,18 +28,20 @@ neptune.log_metric('accuracy', 0.93)
 neptune.append_tags(['basic', 'finished_successfully'])
 
 # tests
-current_exp = neptune.get_experiment()
-
-if set(current_exp.get_logs().keys()) != set(['accuracy']):
-    raise ValueError()
+exp = neptune.get_experiment()
 
 neptune.stop()
 
+# tests
+
+if set(exp.get_logs().keys()) != set(['accuracy']):
+    raise ValueError()
+
 # Keras classification example [Advanced]
 
-get_ipython().system('pip install tensorflow==2.3.1 scikit-plot==0.3.7')
+get_ipython().system(' pip install tensorflow==2.3.1 scikit-plot==0.3.7')
 
-get_ipython().system('pip install tensorflow scikit-plot --upgrade')
+get_ipython().system(' pip install tensorflow scikit-plot --upgrade')
 
 import tensorflow as tf
 
