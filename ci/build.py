@@ -5,9 +5,8 @@ from glob import glob
 from pathlib import Path
 from subprocess import call
 
-R_INTEGRATION_NOTEBOOK_PATTERN = 'Neptune-R'
 
-def clean_script(filename):
+def clean_py_script(filename):
     EXCLUDED_STR = ['# In[', '#!/usr', '# coding:']
     code_text = filename.read_text().split('\n')
     lines = [line for line in code_text if all(l not in line for l in EXCLUDED_STR)]
@@ -43,32 +42,24 @@ def nbconvert_with_renaming(**kwargs):
 def build_tests(path):
     tests_dir = path.parent / 'tests'
 
-    if path.stem == R_INTEGRATION_NOTEBOOK_PATTERN:
-        format="script"
-        ext = '.r'
-    else:
-        format="python"
-        ext = '.py'
-
     # create .py ipython script -> you need to run it with ipython my_file.py
-
     nbconvert(
         tags=repr(['comment','neptune_stop', 'library_updates','bash_code','exclude']),
         output_dir=tests_dir,
-        format=format,
+        format="python",
         notebook_filename=path
     )
-    clean_script(tests_dir / (path.stem + ext))
+    clean_py_script(tests_dir / (path.stem + '.py'))
 
     # create .py ipython script with upgraded libraries-> you need to run it with ipython my_file.py
     nbconvert_with_renaming(
         tags = repr(['comment','neptune_stop','bash_code','exclude']),
         output = path.stem + '_upgraded_libs',
         output_dir = tests_dir,
-        format = format,
+        format = "python",
         notebook_filename = path
     )
-    clean_script(tests_dir / (path.stem + '_upgraded_libs{}'.format(ext)))
+    clean_py_script(tests_dir / (path.stem + '_upgraded_libs.py'))
 
 def build_docs(path):
     docs_dir = path.parent / 'docs'
@@ -81,21 +72,14 @@ def build_docs(path):
         notebook_filename=path
     )
 
-    if path.stem == R_INTEGRATION_NOTEBOOK_PATTERN:
-        format="script"
-        ext = '.r'
-    else:
-        format="python"
-        ext = '.py'
-
     # create .py script
     nbconvert(
         tags=repr(['comment','installation', 'neptune_stop','tests','library_updates','bash_code','exclude']),
         output_dir=docs_dir,
-        format=format,
+        format="python",
         notebook_filename=path
     )
-    clean_script(docs_dir / (path.stem + ext))
+    clean_py_script(docs_dir / (path.stem + '.py'))
 
 def build_showcase(path):
     showcase_dir = path.parent / 'showcase'
@@ -119,6 +103,8 @@ source_files.extend(glob('product-tours/*/*.ipynb', recursive=True))
 source_files.extend(glob('quick-starts/*/*.ipynb', recursive=True))
 
 excluded_files = []
+excluded_files.extend(glob('integrations/r/*.ipynb', recursive=True))
+excluded_files.extend(glob('integrations\\r\\*.ipynb', recursive=True))
 
 if __name__ == "__main__":
     for path in source_files:

@@ -30,7 +30,7 @@ For each example you can:
 - XGBoost [code](./integrations/xgboost/docs/Neptune-XGBoost.py) [notebook](./integrations/xgboost/showcase/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/showcase/Neptune-XGBoost.ipynb)
 - lightGBM [code](./integrations/lightgbm/docs/Neptune-lightGBM.py) [notebook](./integrations/lightgbm/showcase/Neptune-lightGBM.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/lightgbm/showcase/Neptune-lightGBM.ipynb)
 - Optuna [code](./integrations/optuna/docs/Neptune-Optuna.py) [notebook](./integrations/optuna/showcase/Neptune-Optuna.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/optuna/showcase/Neptune-Optuna.ipynb)
-- R [code](./integrations/r/docs/Neptune-R.r) [notebook](./integrations/r/showcase/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/showcase/Neptune-R.ipynb)
+- R [code](./integrations/r/Neptune-R.r) [notebook](./integrations/r/Neptune-R.ipynb)
 - Google Colab [notebook](./integrations/showcase/Basic-Colab-Example.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/colab/showcase/Basic-Colab-Example.ipynb)
 
 ## Contributing

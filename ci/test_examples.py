@@ -9,9 +9,6 @@ import pytest
 test_files = glob('**/tests/*.py', recursive=True)
 
 excluded_files = []
-excluded_files.extend(glob('integrations\\r\\tests\\*.r', recursive=True))
-excluded_files.extend(glob('integrations/r/tests/*.r', recursive=True))
-
 if os.name == 'nt': # if OS is Windows
     # Excluding because unable to install Tensorflow on a Windows CI server with
     #
