@@ -11,7 +11,7 @@ For each example you can:
 
 ## Quick Starts
 
-- Use Neptune API to log your first experiment [code](./quick-starts/first-experiment/docs/Use-Neptune-API-to-log-your-first-experiment.py) [notebook](./quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb)
+- Hello World [code](./quick-starts/first-experiment/docs/Use-Neptune-API-to-log-your-first-experiment.py) [notebook](./quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb)
 - Monitor ML runs live [code](./quick-starts/monitor-ml-runs/docs/Monitor-ML-runs-live.py) [notebook](./quick-starts/monitor-ml-runs/showcase/Monitor-ML-runs-live.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quick-starts/monitor-ml-runs/showcase/Monitor-ML-runs-live.ipynb)
 - Organize ML experiments [code](./quick-starts/organize-ml-experimentation/docs/Organize-ML-experiments.py) [notebook](./quick-starts/organize-ml-experimentation/showcase/Organize-ML-experiments.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quick-starts/organize-ml-experimentation/showcase/Organize-ML-experiments.ipynb)
 
@@ -30,7 +30,7 @@ For each example you can:
 - XGBoost [code](./integrations/xgboost/docs/Neptune-XGBoost.py) [notebook](./integrations/xgboost/showcase/Neptune-XGBoost.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/xgboost/showcase/Neptune-XGBoost.ipynb)
 - lightGBM [code](./integrations/lightgbm/docs/Neptune-lightGBM.py) [notebook](./integrations/lightgbm/showcase/Neptune-lightGBM.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/lightgbm/showcase/Neptune-lightGBM.ipynb)
 - Optuna [code](./integrations/optuna/docs/Neptune-Optuna.py) [notebook](./integrations/optuna/showcase/Neptune-Optuna.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/optuna/showcase/Neptune-Optuna.ipynb)
-- R [notebook](./integrations/r/Neptune-R.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/r/Neptune-R.ipynb)
+- R [code](./integrations/r/Neptune-R.r) [notebook](./integrations/r/Neptune-R.ipynb)
 - Google Colab [notebook](./integrations/showcase/Basic-Colab-Example.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/integrations/colab/showcase/Basic-Colab-Example.ipynb)
 
 ## Contributing
