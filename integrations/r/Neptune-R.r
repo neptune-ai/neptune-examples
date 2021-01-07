@@ -60,6 +60,9 @@ create_experiment(name='training on Sonar',
                   params = params
 )
 
+### Organize experiments with tags
+append_tag(c('random-forest','sonar'))
+
 ### Log data versions and other properties
 set_property(property = 'data-version', value = digest(dataset))
 
