@@ -12,11 +12,15 @@ get_ipython().system(' pip install --quiet scikit-learn neptune-client neptune-c
 
 ## Step 1: Create and fit random forest regressor
 
+parameters = {'n_estimators': 70,
+              'max_depth': 7,
+              'min_samples_split': 3}
+
 from sklearn.datasets import load_boston
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
-rfr = RandomForestRegressor(n_estimators=70, max_depth=7, min_samples_split=3)
+rfr = RandomForestRegressor(**parameters)
 
 X, y = load_boston(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=28743)
@@ -31,7 +35,8 @@ neptune.init('shared/sklearn-integration', api_token='ANONYMOUS')
 
 ## Step 3: Create an Experiment
 
-neptune.create_experiment(name='regression-example',
+neptune.create_experiment(params=parameters,
+                          name='regression-example',
                           tags=['RandomForestRegressor', 'regression'])
 
 ## Step 4: Log regressor summary
@@ -48,12 +53,15 @@ correct_logs_set = {'evs_test_sklearn', 'me_test_sklearn', 'mae_test_sklearn', '
 from_exp_logs = set(exp.get_logs().keys())
 assert correct_logs_set == from_exp_logs, '{} - incorrect logs'.format(exp)
 
-# check parameters
+# check sklearn parameters
 assert set(exp.get_properties().keys()) == set(rfr.get_params().keys()), '{} parameters do not match'.format(exp)
+
+# check neptune parameters
+assert set(exp.get_parameters().keys()) == set(parameters.keys()), '{} parameters do not match'.format(exp)
 
 ## Step 5: Stop Neptune experiment after logging summary
 
-exp.stop()
+neptune.stop()
 
 ## Explore results
 
@@ -61,11 +69,16 @@ exp.stop()
 
 ## Step 1: Create and fit gradient boosting classifier
 
+parameters = {'n_estimators': 120,
+              'learning_rate': 0.12,
+              'min_samples_split': 3,
+              'min_samples_leaf': 2}
+
 from sklearn.datasets import load_digits
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 
-gbc = GradientBoostingClassifier(n_estimators=120, learning_rate=0.12, min_samples_split=3, min_samples_leaf=2)
+gbc = GradientBoostingClassifier(**parameters)
 
 X, y = load_digits(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=28743)
@@ -80,7 +93,8 @@ neptune.init('shared/sklearn-integration', api_token='ANONYMOUS')
 
 ## Step 3: Create an Experiment
 
-neptune.create_experiment(name='classification-example',
+neptune.create_experiment(params=parameters,
+                          name='classification-example',
                           tags=['GradientBoostingClassifier', 'classification'])
 
 ## Step 4: Log classifier summary
@@ -100,12 +114,15 @@ for name in ['precision', 'recall', 'fbeta_score', 'support']:
 from_exp_logs = set(exp.get_logs().keys())
 assert correct_logs_set == from_exp_logs, '{} - incorrect logs'.format(exp)
 
-# check parameters
+# check sklearn parameters
 assert set(exp.get_properties().keys()) == set(gbc.get_params().keys()), '{} parameters do not match'.format(exp)
+
+# check neptune parameters
+assert set(exp.get_parameters().keys()) == set(parameters.keys()), '{} parameters do not match'.format(exp)
 
 ## Step 5: Stop Neptune experiment after logging summary
 
-exp.stop()
+neptune.stop()
 
 ## Explore Results
 
@@ -113,10 +130,13 @@ exp.stop()
 
 ## Step 1: Create KMeans object and example data
 
+parameters = {'n_init': 11,
+              'max_iter': 270}
+
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 
-km = KMeans(n_init=11, max_iter=270)
+km = KMeans(**parameters)
 
 X, y = make_blobs(n_samples=579, n_features=17, centers=7, random_state=28743)
 
@@ -128,7 +148,9 @@ neptune.init('shared/sklearn-integration', api_token='ANONYMOUS')
 
 ## Step 3: Create an Experiment
 
-neptune.create_experiment(name='clustering-example', tags=['KMeans', 'clustering'])
+neptune.create_experiment(params=parameters,
+                          name='clustering-example',
+                          tags=['KMeans', 'clustering'])
 
 ## Step 4: Log KMeans clustering summary
 
@@ -145,12 +167,15 @@ assert list(exp.get_logs().keys()) == ['charts_sklearn'], '{} - incorrect logs'.
 # check cluster labels
 assert X.shape[0] == len(km.labels_), '{} incorrect number of cluster labels'.format(exp)
 
-# check parameters
+# check sklearn parameters
 assert set(exp.get_properties().keys()) == set(km.get_params().keys()), '{} parameters do not match'.format(exp)
+
+# check neptune parameters
+assert set(exp.get_parameters().keys()) == set(parameters.keys()), '{} parameters do not match'.format(exp)
 
 ## Step 5: Stop Neptune experiment after logging summary
 
-exp.stop()
+neptune.stop()
 
 ## Explore Results
 
