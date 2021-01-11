@@ -85,8 +85,7 @@ all_logs = exp.get_logs()
 ## check logs
 correct_logs = ['batch_loss']
 
-if set(all_logs.keys()) != set(correct_logs):
-    raise ValueError('incorrect metrics')
+assert set(all_logs.keys()) == set(correct_logs), 'Expected: {}. Actual: {}'.format(set(correct_logs), set(all_logs.keys()))
 
 neptune.stop()
 
@@ -150,8 +149,7 @@ all_logs = exp.get_logs()
 ## check logs
 correct_logs = ['batch_loss', 'predictions']
 
-if set(all_logs.keys()) != set(correct_logs):
-    raise ValueError('incorrect metrics')
+assert set(all_logs.keys()) == set(correct_logs), 'Expected: {}. Actual: {}'.format(set(correct_logs), set(all_logs.keys()))
 
 ## Stop logging
 
