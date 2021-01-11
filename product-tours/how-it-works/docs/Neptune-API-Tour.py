@@ -21,12 +21,6 @@ neptune.log_metric('accuracy', 0.93)
 
 neptune.append_tags(['basic', 'finished_successfully'])
 
-# tests
-current_exp = neptune.get_experiment()
-
-if set(current_exp.get_logs().keys()) != set(['accuracy']):
-    raise ValueError()
-
 neptune.stop()
 
 # Keras classification example [Advanced]
