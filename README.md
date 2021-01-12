@@ -39,7 +39,7 @@ For each example you can:
 
 ## Contributing
 
-### Required sections
+### Required sections~/
 
 When you create an example notebook remember to create the following sections:
 - Installation: all the libraries needed to run this in Colab in their current versions

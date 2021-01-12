@@ -36,19 +36,19 @@ def objective(**params):
     accuracy = roc_auc_score(test_y, preds)
     return -1.0 * accuracy
 
-# Quickstart
-
-## Step 1: Initialize Neptune
+## Initialize Neptune
 
 import neptune
 
 neptune.init(api_token='ANONYMOUS', project_qualified_name='shared/scikit-optimize-integration')
 
-## Step 2: Create an Experiment
+# Quickstart
+
+## Step 1: Create an Experiment
 
 neptune.create_experiment(name='skopt-sweep')
 
-## Step 3: Run skopt with the Neptune Callback
+## Step 2: Run skopt with the Neptune Callback
 
 # Create Neptune Callback
 import neptunecontrib.monitoring.skopt as skopt_utils
@@ -59,10 +59,52 @@ neptune_callback = skopt_utils.NeptuneCallback()
 results = skopt.forest_minimize(objective, space, n_calls=25, n_random_starts=10,
                                 callback=[neptune_callback])
 
-## Step 4: Log best parameter configuration, best score and diagnostic plots
+## Step 3: Log best parameter configuration, best score and diagnostic plots
 
 skopt_utils.log_results(results)
 
-## Step 5: Stop logging and Explore results in the Neptune UI
+## Step 4: Stop logging and Explore results in the Neptune UI
+
+neptune.stop()
+
+# Logging BayesSearchCV 
+
+## Prepare the data and initialize BayesSearchCV optimizer
+
+from skopt import BayesSearchCV
+from skopt.space import Real, Categorical, Integer
+
+from sklearn.datasets import load_iris
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+
+X, y = load_iris(True)
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    train_size=0.75,
+                                                    random_state=0)
+
+opt = BayesSearchCV(
+    SVC(),
+    {
+        'C': Real(1e-6, 1e+6, prior='log-uniform'),
+        'gamma': Real(1e-6, 1e+1, prior='log-uniform'),
+        'degree': Integer(1,8),
+        'kernel': Categorical(['linear', 'poly', 'rbf']),
+    },
+    n_iter=32,
+    random_state=0
+)
+
+## Create Neptune experiment and pass NeptuneCallback to the `fit method`
+
+neptune.create_experiment(name='skopt-sweep-bayes-search')
+
+opt.fit(X_train, y_train, callback=skopt_utils.NeptuneCallback())
+
+## Log diagnostic plots and best parameters via ``log_results`` function 
+
+skopt_utils.log_results(opt._optim_results[0])
+
+## Stop experiment
 
 neptune.stop()
