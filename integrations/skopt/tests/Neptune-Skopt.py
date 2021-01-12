@@ -86,7 +86,7 @@ assert set(all_logs.keys()) == set(correct_logs), 'Expected: {}. Actual: {}'.for
 
 # Logging BayesSearchCV 
 
-## Prepere the data and initialize BayesSearchCV optimizer
+## Prepare the data and initialize BayesSearchCV optimizer
 
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer

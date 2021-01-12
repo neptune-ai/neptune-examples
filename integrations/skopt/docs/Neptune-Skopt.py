@@ -69,7 +69,7 @@ neptune.stop()
 
 # Logging BayesSearchCV 
 
-## Prepere the data and initialize BayesSearchCV optimizer
+## Prepare the data and initialize BayesSearchCV optimizer
 
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
