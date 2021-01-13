@@ -6,7 +6,7 @@
 
 ## Install Dependencies
 
-get_ipython().system(' pip install --quiet tensorboard==2.4.0 tensorflow==2.3.1 neptune-tensorboard==0.5.1 neptune-client==0.4.131')
+get_ipython().system(' pip install --quiet tensorboard==2.4.0 tensorflow==2.3.1 neptune-tensorboard==0.5.1 neptune-client==0.4.132')
 
 get_ipython().system(' pip install --quiet --upgrade tensorboard neptune-tensorboard neptune-client')
 

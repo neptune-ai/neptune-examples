@@ -11,7 +11,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.131 tensorflow==2.3.0')
+get_ipython().system(' pip install neptune-client==0.4.132 tensorflow==2.3.0')
 
 # Step 1: Create a basic training script
 

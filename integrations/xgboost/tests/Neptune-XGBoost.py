@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install neptune-client==0.4.131 neptune-contrib[monitoring]==0.25.0 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.2')
+get_ipython().system(' pip install neptune-client==0.4.132 neptune-contrib[monitoring]==0.25.0 xgboost==1.2.0 pandas==1.0.5 scikit-learn==0.23.2')
 
 import neptune
 import pandas as pd

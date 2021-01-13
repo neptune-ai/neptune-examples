@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install --quiet optuna==2.3.0 lightgbm==3.1.0 plotly==4.13.0 neptune-client==0.4.131 neptune-contrib[monitoring]==0.25.0')
+get_ipython().system(' pip install --quiet optuna==2.3.0 lightgbm==3.1.0 plotly==4.13.0 neptune-client==0.4.132 neptune-contrib[monitoring]==0.25.0')
 
 get_ipython().system(' pip install --quiet optuna plotly lightgbm neptune-client neptune-contrib[monitoring] --upgrade')
 

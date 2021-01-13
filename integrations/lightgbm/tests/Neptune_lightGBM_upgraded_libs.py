@@ -4,7 +4,7 @@
 
 ## Install Dependencies
 
-get_ipython().system(' pip install --quiet lightgbm==2.2.3 neptune-client==0.4.131 neptune-contrib[monitoring]==0.25.0')
+get_ipython().system(' pip install --quiet lightgbm==2.2.3 neptune-client==0.4.132 neptune-contrib[monitoring]==0.25.0')
 
 get_ipython().system(' pip install --quiet lightgbm neptune-client neptune-contrib[monitoring] --upgrade')
 
