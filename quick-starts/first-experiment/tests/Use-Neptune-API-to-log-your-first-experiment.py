@@ -2,7 +2,7 @@
 
 # Before you start
 
-get_ipython().system(' pip install neptune-client==0.4.130')
+get_ipython().system(' pip install neptune-client==0.4.132')
 
 # Step 1 - Initialize Neptune
 
