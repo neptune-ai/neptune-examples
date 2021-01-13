@@ -4,7 +4,7 @@
 
 ## Install Dependencies
 
-get_ipython().system(' pip install --quiet mlflow==1.12.1 neptune-mlflow==0.2.5 neptune-client==0.4.130')
+get_ipython().system(' pip install --quiet mlflow==1.12.1 neptune-mlflow==0.2.5 neptune-client==0.4.131')
 
 get_ipython().system(' pip install --quiet --upgrade mlflow neptune-mlflow neptune-client')
 

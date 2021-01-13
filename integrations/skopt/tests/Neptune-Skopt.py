@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(" pip install --quiet scikit-optimize==0.8.1 neptune-client==0.4.130 neptune-contrib['monitoring']==0.25.0")
+get_ipython().system(" pip install --quiet scikit-optimize==0.8.1 neptune-client==0.4.131 neptune-contrib['monitoring']==0.25.0")
 
 ## Create a sample objective function for skopt
 

@@ -2,7 +2,7 @@
 
 # Setup
 
-get_ipython().system(' pip install scikit-learn==0.23.1 joblib==0.15.1 neptune-client==0.4.130')
+get_ipython().system(' pip install scikit-learn==0.23.1 joblib==0.15.1 neptune-client==0.4.131')
 
 # Step 1: Create a basic training script
 
