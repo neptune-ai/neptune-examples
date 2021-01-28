@@ -1,4 +1,3 @@
-import os
 import re
 
 from glob import glob
@@ -16,6 +15,7 @@ def clean_py_script(filename):
     clean_code = re.sub(r'\n{2,}', '\n\n', clean_code)
     filename.write_text(clean_code.strip())
 
+
 def nbconvert(**kwargs):
     command = """jupyter nbconvert \
         --TagRemovePreprocessor.enabled=True \
@@ -26,6 +26,7 @@ def nbconvert(**kwargs):
     retcode = call(command, shell=True)
     if retcode:
         raise Exception('Converting {notebook_filename} to format {format} outputting into directory {output_dir} failed'.format(**kwargs))
+
 
 def nbconvert_with_renaming(**kwargs):
     command = """jupyter nbconvert \
@@ -39,27 +40,30 @@ def nbconvert_with_renaming(**kwargs):
     if retcode:
         raise Exception('Converting {notebook_filename} to format {format} outputting into directory {output_dir} failed'.format(**kwargs))
 
+
 def build_tests(path):
     tests_dir = path.parent / 'tests'
 
-    # create .py ipython script -> you need to run it with ipython my_file.py
-    nbconvert(
-        tags=repr(['comment','neptune_stop', 'library_updates','bash_code','exclude']),
+    # create .py ipython script with fixed libraries -> you need to run it with ipython my_file.py
+    nbconvert_with_renaming(
+        tags=repr(['comment', 'neptune_stop', 'library_updates', 'bash_code', 'exclude']),
+        output=path.stem + '_fixed_libs',
         output_dir=tests_dir,
         format="python",
         notebook_filename=path
     )
-    clean_py_script(tests_dir / (path.stem + '.py'))
+    clean_py_script(tests_dir / (path.stem + '_fixed_libs.py'))
 
-    # create .py ipython script with upgraded libraries-> you need to run it with ipython my_file.py
+    # create .py ipython script with upgraded libraries -> you need to run it with ipython my_file.py
     nbconvert_with_renaming(
-        tags = repr(['comment','neptune_stop','bash_code','exclude']),
-        output = path.stem + '_upgraded_libs',
-        output_dir = tests_dir,
-        format = "python",
-        notebook_filename = path
+        tags=repr(['comment', 'neptune_stop', 'bash_code', 'exclude']),
+        output=path.stem + '_upgraded_libs',
+        output_dir=tests_dir,
+        format="python",
+        notebook_filename=path
     )
     clean_py_script(tests_dir / (path.stem + '_upgraded_libs.py'))
+
 
 def build_docs(path):
     docs_dir = path.parent / 'docs'
@@ -81,6 +85,7 @@ def build_docs(path):
     )
     clean_py_script(docs_dir / (path.stem + '.py'))
 
+
 def build_showcase(path):
     showcase_dir = path.parent / 'showcase'
         # create notebook without tests
@@ -91,11 +96,13 @@ def build_showcase(path):
         notebook_filename=path
     )
 
+
 def build(path):
     path = Path(path)
     build_tests(path)
     build_docs(path)
     build_showcase(path)
+
 
 source_files = []
 source_files.extend(glob('integrations/*/*.ipynb', recursive=True))

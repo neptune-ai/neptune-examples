@@ -6,7 +6,7 @@ from subprocess import check_call
 
 import pytest
 
-test_files = glob('**/tests/*.py', recursive=True)
+test_files = glob('**/tests/*_fixed_libs.py', recursive=True)
 
 excluded_files = []
 if os.name == 'nt': # if OS is Windows

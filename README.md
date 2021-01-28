@@ -65,7 +65,7 @@ For each example notebook you create the following artifacts will be created aut
 - `*/docs/NOTEBOOK_NAME.ipynb` : it excluded cells tagged with 'comment', 'tests', 'library_updates'
 - `*/docs/NOTEBOOK_NAME.py` : it excluded cells tagged with'comment', 'tests', 'library_updates', 'neptune_stop'
 - `*/showcase/NOTEBOOK_NAME.ipynb` : it excluded cells tagged with 'tests', 'library_updates'
-- `*/tests/NOTEBOOK_NAME.py` : it excluded cells tagged with 'comment', 'library_updates' , 'neptune_stop'
+- `*/tests/NOTEBOOK_NAME_fixed_libs.py` : it excluded cells tagged with 'comment', 'library_updates' , 'neptune_stop'
 - `*/tests/NOTEBOOK_NAME_upgraded_libs.py` : it excluded cells tagged with 'comment', 'neptune_stop'
 
 To do it run:
