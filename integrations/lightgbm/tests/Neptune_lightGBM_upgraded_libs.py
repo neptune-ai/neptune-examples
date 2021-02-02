@@ -113,7 +113,7 @@ neptune.log_artifact('lightgbm.pkl')
 
 ### 1. Install dependencies
 
-get_ipython().system(' pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0')
+get_ipython().system(' pip install --quiet scikit-plot==0.3.7 matplotlib==3.2.0 plotly==4.12.0')
 
 get_ipython().system(' pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0')
 
