@@ -115,6 +115,8 @@ neptune.log_artifact('lightgbm.pkl')
 
 get_ipython().system(' pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0')
 
+get_ipython().system(' pip install --quiet scikit-plot matplotlib==3.2.0 plotly==4.12.0')
+
 ### 2. Create an ROC AUC curve
 
 import matplotlib.pyplot as plt
