@@ -41,7 +41,7 @@ jobs:
         run: |
           git status
           git update-index --refresh
-          git diff-index --quiet HEAD --
+          git diff-index --exit-code HEAD --
       - name: Test with fixed versions of libraries
         run: python -m pytest -v --junitxml=junit/test-results.xml ci/test_examples_fixed_libs.py
       - name: Test with upgraded versions of libraries
