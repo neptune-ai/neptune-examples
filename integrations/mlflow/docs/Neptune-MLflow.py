@@ -46,5 +46,4 @@ get_ipython().system(' neptune mlflow')
 # You can specify the path to the directory where the 'mlruns' directory is. 
 
 # See converted experiments
-# 
 # Click on the link(s) above to browse the MLflow run in Neptune or go to [shared/mlflow-integration project](https://ui.neptune.ai/o/shared/org/mlflow-integration/experiments?viewId=7608998d-4828-48c5-81cc-fb9ec625e206).

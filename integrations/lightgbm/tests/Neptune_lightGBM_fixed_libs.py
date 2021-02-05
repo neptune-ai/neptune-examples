@@ -19,7 +19,6 @@ neptune.init(api_token='ANONYMOUS', project_qualified_name='shared/LightGBM-inte
 # Quickstart
 
 ## Step 1: Create an Experiment
-# 
 
 neptune.create_experiment(name='LightGBM-training')
 
@@ -122,7 +121,6 @@ fig, ax = plt.subplots()
 plot_roc(y_test, y_test_pred, ax=ax)
 
 ### 3. Log it to Neptune via `log_chart()` function.
-# 
 
 from neptunecontrib.api import log_chart
 

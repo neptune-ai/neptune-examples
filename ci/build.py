@@ -11,6 +11,7 @@ def clean_py_script(filename):
     lines = [line for line in code_text if all(l not in line for l in EXCLUDED_STR)]
     lines = [line.replace('# ##', '#') for line in lines]
     lines = [line.replace('# #', '#') for line in lines]
+    lines = [line for line in lines if line.strip() != "#"]
     clean_code = '\n'.join(lines)
     clean_code = re.sub(r'\n{2,}', '\n\n', clean_code)
     filename.write_text(clean_code.strip())
