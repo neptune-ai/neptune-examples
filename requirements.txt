@@ -1,5 +1,6 @@
 nbconvert>=6.0.0
 ipython>=7.0.0
+lightgbm==3.1.1
 matplotlib==3.2  # https://stackoverflow.com/a/64884921/1565454
 pyyaml>=5.0.0
 pathlib2>=2.0.0
