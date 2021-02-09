@@ -7,6 +7,7 @@ from subprocess import check_call
 import pytest
 
 test_files = glob('**/tests/*_fixed_libs.py', recursive=True)
+test_files = ["product-tours/how-it-works/tests/Neptune-API-Tour_upgraded_libs.py"]
 
 excluded_files = []
 if os.name == 'nt': # if OS is Windows
