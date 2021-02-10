@@ -2,7 +2,7 @@
 
 # Setup
 
-get_ipython().system(' pip install neptune-client==0.4.132')
+get_ipython().system(' pip install neptune-client==0.4.132 tensorflow==2.3.1 scikit-plot==0.3.7')
 
 # Initialize Neptune
 
@@ -35,8 +35,6 @@ if set(exp.get_logs().keys()) != set(['accuracy']):
     raise ValueError()
 
 # Keras classification example [Advanced]
-
-get_ipython().system(' pip install tensorflow==2.3.1 scikit-plot==0.3.7')
 
 import tensorflow as tf
 
