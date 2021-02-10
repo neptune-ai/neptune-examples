@@ -45,4 +45,4 @@ jobs:
       - name: Test with fixed versions of libraries
         run: python -m pytest -v --junitxml=junit/test-results.xml ci/test_examples_fixed_libs.py
       - name: Test with upgraded versions of libraries
-        run: python -m pytest -v --cache-clear --junitxml=junit/test-results.xml ci/test_examples_upgraded_libs.py
+        run: python -m pytest -v --junitxml=junit/test-results.xml ci/test_examples_upgraded_libs.py
