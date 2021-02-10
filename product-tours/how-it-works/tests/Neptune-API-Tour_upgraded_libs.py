@@ -38,9 +38,21 @@ if set(exp.get_logs().keys()) != set(['accuracy']):
 
 # Keras classification example [Advanced]
 
+import sys
+for module in [module for module in sys.modules if 'numpy' in module]:
+    del sys.modules[module]
+
 get_ipython().system(' pip install tensorflow==2.3.1 scikit-plot==0.3.7')
 
+import sys
+for module in [module for module in sys.modules if 'numpy' in module]:
+    del sys.modules[module]
+
 get_ipython().system(' pip install tensorflow scikit-plot --upgrade')
+
+import sys
+for module in [module for module in sys.modules if 'numpy' in module]:
+    del sys.modules[module]
 
 import tensorflow as tf
 
