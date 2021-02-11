@@ -6,10 +6,6 @@ get_ipython().system(' pip install --quiet neptune-client==0.4.132 neptune-contr
 
 # Basic Tour
 
-# https://stackoverflow.com/questions/27147300/matplotlib-tcl-asyncdelete-async-handler-deleted-by-the-wrong-thread/29172195#29172195
-import matplotlib
-matplotlib.use('Agg')
-
 # Step 1: Import Neptune and TensorFlow
 
 import neptune
@@ -177,6 +173,10 @@ df = pd.DataFrame(data={'y_test': y_test, 'y_pred': y_pred, 'y_pred_probability'
 log_table('predictions', df)
 
 # Log model performance visualizations
+
+# https://stackoverflow.com/questions/27147300/matplotlib-tcl-asyncdelete-async-handler-deleted-by-the-wrong-thread/29172195#29172195
+import matplotlib
+matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 from scikitplot.metrics import plot_roc, plot_precision_recall
