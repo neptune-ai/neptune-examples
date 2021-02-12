@@ -6,8 +6,6 @@
 
 # Logging PyTorch meta-data to Neptune
 
-## Basic example
-
 import hashlib
 
 import neptune
@@ -42,19 +40,19 @@ PARAMS = {'fc_out_features': 400,
           'iterations': 300,
           'batch_size': 64}
 
-### Initialize Neptune
+## Initialize Neptune
 
 import neptune
 
 neptune.init('shared/tour-with-pytorch', api_token='ANONYMOUS')
 
-### Create an experiment and log model hyper-parameters
+## Create an experiment and log model hyper-parameters
 
 neptune.create_experiment(name='pytorch-run',
                           tags=['pytorch', 'MNIST'],
                           params=PARAMS)
 
-### Log data version to the experiment
+## Log data version to the experiment
 
 dataset = datasets.MNIST('../data',
                          train=True,
@@ -64,7 +62,7 @@ dataset = datasets.MNIST('../data',
 neptune.set_property('data_version',
                      hashlib.md5(dataset.data.cpu().detach().numpy()).hexdigest())
 
-### Log losses, accuracy score and image predictions during training
+## Log losses, accuracy score and image predictions during training
 
 train_loader = torch.utils.data.DataLoader(dataset,
                                            batch_size=PARAMS['batch_size'],
@@ -108,10 +106,10 @@ for batch_idx, (data, target) in enumerate(train_loader):
 torch.save(model.state_dict(), 'model_dict.pth')
 neptune.log_artifact('model_dict.pth')
 
-### Stop Neptune experiment after training
+## Stop Neptune experiment after training
 
 neptune.stop()
 
-## Summary
+# Summary
 
 # If you want to learn more, go to the [Neptune documentation](https://docs.neptune.ai/integrations/pytorch.html).
