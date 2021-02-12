@@ -17,8 +17,10 @@ For each example you can:
 
 ## Product Tours
 
-- Neptune API Tour [code](./product-tours/how-it-works/docs/Neptune-API-Tour.py) [notebook](./product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb)
-- Tour with TensorFlow and Keras [code](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.py) [notebook](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/tour-tf-keras/showcase/Tour-with-TensorFlow-and-Keras.ipynb)
+- Neptune API Tour [code](./product-tours/how-it-works/docs/Neptune-API-Tour.py) | [notebook](./product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/how-it-works/showcase/Neptune-API-Tour.ipynb)
+- Tour with TensorFlow and Keras [code](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.py) | [notebook](./product-tours/tour-tf-keras/docs/Tour-with-TensorFlow-and-Keras.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/tour-tf-keras/showcase/Tour-with-TensorFlow-and-Keras.ipynb)
+- Tour with PyTorch [code](./product-tours/tour-pytorch/docs/Tour-with-PyTorch.py) | [notebook](./product-tours/tour-pytorch/docs/Tour-with-PyTorch.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/tour-pytorch/showcase/Tour-with-PyTorch.ipynb)
+- Tour with Scikit-learn [code](./product-tours/tour-sklearn/docs/Tour-with-Sklearn.py) | [notebook](./product-tours/tour-sklearn/docs/Tour-with-Sklearn.ipynb) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/product-tours/tour-sklearn/showcase/Tour-with-Sklearn.ipynb)
 
 ## Integrations
 
