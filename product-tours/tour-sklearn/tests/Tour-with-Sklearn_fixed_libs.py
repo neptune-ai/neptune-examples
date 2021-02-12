@@ -2,7 +2,7 @@
 
 # Install dependencies
 
-get_ipython().system(' pip install --quiet scikit-learn==0.24.1 neptune-client==0.5.0 neptune-contrib[monitoring]==0.26.0')
+get_ipython().system(' pip install --quiet scikit-learn==0.24.1 neptune-client==0.5.1 neptune-contrib[monitoring]==0.26.0')
 
 # Introduction
 
