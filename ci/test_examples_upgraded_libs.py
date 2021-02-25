@@ -9,6 +9,10 @@ import pytest
 test_files = glob('**/tests/*_upgraded_libs.py', recursive=True)
 
 excluded_files = []
+
+if os.name == 'posix': # if OS is Linux
+    excluded_files.extend(glob('integrations/pytorch/tests/*.py', recursive=True))
+
 if os.name == 'nt': # if OS is Windows
     # Excluding because unable to install Tensorflow on a Windows CI server with
     #
