@@ -1,4 +1,5 @@
 import os
+import platform
 import sys
 
 from glob import glob
@@ -10,7 +11,7 @@ test_files = glob('**/tests/*_fixed_libs.py', recursive=True)
 
 excluded_files = []
 
-if os.name == 'posix': # if OS is Linux
+if platform.system() == 'Linux': # if OS is Linux
     excluded_files.extend(glob('integrations/pytorch/tests/*.py', recursive=True))
 
 if os.name == 'nt': # if OS is Windows
