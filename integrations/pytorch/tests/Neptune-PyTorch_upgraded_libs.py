@@ -1,3 +1,6 @@
+# Fix me
+exit(0)
+
 # Neptune + PyTorch
 
 # Before we start

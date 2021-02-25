@@ -1,12 +1,9 @@
 # Monitor ML runs live 
 
 # Introduction
-# 
 # This guide will show you how to:
-# 
 # * Monitor training and evaluation metrics and losses live
 # * Monitor hardware resources during training
-# 
 # By the end of it, you will monitor your metrics, losses, and hardware live in Neptune!
 
 # Setup

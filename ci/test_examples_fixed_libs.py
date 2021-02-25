@@ -32,4 +32,10 @@ if os.name == 'nt' and sys.version_info.major == 3 and sys.version_info.minor ==
 
 @pytest.mark.parametrize("filename", [f for f in test_files if f not in excluded_files])
 def test_examples(filename):
+    for f in glob('bayesian-sweep/**/*.*', recursive=True):
+        try:
+            os.remove(f)
+        except OSError as e:
+            print("Error: %s : %s" % (f, e.strerror))
+
     check_call('ipython ' + filename, shell=True)

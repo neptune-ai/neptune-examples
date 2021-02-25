@@ -174,6 +174,10 @@ log_table('predictions', df)
 
 # Log model performance visualizations
 
+# https://stackoverflow.com/questions/27147300/matplotlib-tcl-asyncdelete-async-handler-deleted-by-the-wrong-thread/29172195#29172195
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from scikitplot.metrics import plot_roc, plot_precision_recall
 
