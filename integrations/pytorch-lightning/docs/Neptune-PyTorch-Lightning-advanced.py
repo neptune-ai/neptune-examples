@@ -35,7 +35,7 @@ LightningDataModule_Params = {'batch_size': 32,
 
 LearningRateMonitor_Params = {'logging_interval': 'epoch'}
 
-ModelCheckpoint_Params = {'filepath': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
+ModelCheckpoint_Params = {'filename': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
                           'save_weights_only': True,
                           'save_top_k': 3,
                           'monitor': 'val_loss',

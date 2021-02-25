@@ -13,6 +13,7 @@ excluded_files = []
 
 if platform.system() == 'Linux': # if OS is Linux
     excluded_files.extend(glob('integrations/pytorch/tests/*.py', recursive=True))
+    excluded_files.extend(glob('product-tours/tour-pytorch/tests/*.py', recursive=True))
 
 if os.name == 'nt': # if OS is Windows
     # Excluding because unable to install Tensorflow on a Windows CI server with
