@@ -4,7 +4,7 @@
 
 ## Install necessary dependencies
 
-get_ipython().system(' pip install pytorch-lightning==1.0.7 neptune-client==0.4.132 torch==1.6.0 torchvision==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html')
+get_ipython().system(' pip install pytorch-lightning==1.2.1 neptune-client==0.5.1 torch==1.7.1 torchvision==0.8.2 -f https://download.pytorch.org/whl/torch_stable.html')
 
 ## Install additional dependencies
 
@@ -39,7 +39,7 @@ LightningDataModule_Params = {'batch_size': 32,
 
 LearningRateMonitor_Params = {'logging_interval': 'epoch'}
 
-ModelCheckpoint_Params = {'filepath': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
+ModelCheckpoint_Params = {'filename': 'my_model/checkpoints/{epoch:02d}-{val_loss:.2f}',
                           'save_weights_only': True,
                           'save_top_k': 3,
                           'monitor': 'val_loss',

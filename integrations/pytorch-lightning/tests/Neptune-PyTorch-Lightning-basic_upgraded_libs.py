@@ -4,7 +4,7 @@
 
 ## Install dependencies
 
-get_ipython().system(' pip install pytorch-lightning==1.0.7 neptune-client==0.4.132 torch==1.6.0 torchvision==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html')
+get_ipython().system(' pip install pytorch-lightning==1.2.1 neptune-client==0.5.1 torch==1.7.1 torchvision==0.8.2 -f https://download.pytorch.org/whl/torch_stable.html')
 
 get_ipython().system(' pip install pytorch-lightning neptune-client torch torchvision --upgrade')
 
