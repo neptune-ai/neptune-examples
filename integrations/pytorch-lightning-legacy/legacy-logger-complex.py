@@ -43,7 +43,7 @@ ModelCheckpoint_Params = {'filename': 'my_model/checkpoints/{epoch:02d}-{val_los
                           'save_weights_only': True,
                           'save_top_k': 3,
                           'monitor': 'val_loss',
-                          'period': 1}
+                          'every_n_epochs': 1}
 
 Trainer_Params = {'log_every_n_steps': 100,
                   'max_epochs': 7,
