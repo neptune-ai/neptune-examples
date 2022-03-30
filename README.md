@@ -9,6 +9,9 @@ For each example you can:
 - see rendered notebook (notebook) 
 - or open the notebook in Colab (open in colab)
 
+# Note
+These examples are based on the legacy Neptune.ai API. You can find new API-based examples [here](https://github.com/neptune-ai/examples).
+
 ## Quick Starts
 
 - Hello World [code](./quick-starts/first-experiment/docs/Use-Neptune-API-to-log-your-first-experiment.py) [notebook](./quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/neptune-ai/neptune-examples/blob/master/quick-starts/first-experiment/showcase/Use-Neptune-API-to-log-your-first-experiment.ipynb)
